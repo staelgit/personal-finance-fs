@@ -1,0 +1,22 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+    h1 {
+        @apply font-bold text-2xl;
+    }
+    a {
+        @apply hover:text-black
+    }
+}
+
+@layer components {
+    .main-menu-item.active {
+        @apply relative after:absolute after:w-full after:h-full after:border-b-primary after:border-b-2 pointer-events-none text-black
+    }
+}
+
+.btn {
+    border: black;
+}

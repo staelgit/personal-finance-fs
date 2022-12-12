@@ -1,0 +1,20 @@
+[
+  {
+    "userId": "5tEZi7fnscO19fbprmlMhKMwM6A3",
+    "_id": 1,
+    "date": 1660743951490,
+    "typeOperation": "income",
+    "categoryId": 2,
+    "cashAccountId": 2,
+    "comment": "таки получил я зарплату"
+  },
+  {
+    "userId": "5tEZi7fnscO19fbprmlMhKMwM6A3",
+    "_id": 2,
+    "date": 1660743000001,
+    "typeOperation": "expense",
+    "categoryId": 4,
+    "cashAccountId": 1,
+    "comment": "купил какую то фигню... "
+  }
+]

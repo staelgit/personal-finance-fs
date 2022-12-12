@@ -1,0 +1,14 @@
+[
+  {"userId": "5tEZi7fnscO19fbprmlMhKMwM6A3", "_id": 1, "type": "expense", "title": "Кафе и рестораны" },
+  {"userId": "5tEZi7fnscO19fbprmlMhKMwM6A3", "_id": 2, "type": "expense", "title": "Продукты" },
+  {"userId": "5tEZi7fnscO19fbprmlMhKMwM6A3", "_id": 3, "type": "expense", "title": "Здоровье и фитнес" },
+  {"userId": "5tEZi7fnscO19fbprmlMhKMwM6A3", "_id": 4, "type": "expense", "title": "Развлечения" },
+  {"userId": "5tEZi7fnscO19fbprmlMhKMwM6A3", "_id": 5, "type": "expense", "title": "Хозтовары и личная гигиена" },
+  {"userId": "5tEZi7fnscO19fbprmlMhKMwM6A3", "_id": 6, "type": "expense", "title": "Авто" },
+  {"userId": "5tEZi7fnscO19fbprmlMhKMwM6A3", "_id": 7, "type": "expense", "title": "Транспорт" },
+  {"userId": "5tEZi7fnscO19fbprmlMhKMwM6A3", "_id": 8, "type": "expense", "title": "Лекарства" },
+  {"userId": "5tEZi7fnscO19fbprmlMhKMwM6A3", "_id": 9, "type": "expense", "title": "Бытовая техника" },
+  {"userId": "5tEZi7fnscO19fbprmlMhKMwM6A3", "_id": 1, "type": "income", "title": "Зарплата"},
+  {"userId": "5tEZi7fnscO19fbprmlMhKMwM6A3", "_id": 2, "type": "income", "title": "Проценты от вклада в банке"},
+  {"userId": "5tEZi7fnscO19fbprmlMhKMwM6A3", "_id": 3, "type": "income", "title": "Деньги полученные в подарок" }
+]
