@@ -55,7 +55,7 @@ const AppLoader = ({ children }) => {
          accountsLoadingStatus ||
          categoriesLoadingStatus ||
          operationsLoadingStatus);
-   console.log('isLoaderVisible:', isLoaderVisible);
+   // console.log('isLoaderVisible:', isLoaderVisible);
    if (isLoaderVisible) return <Loader />;
 
    return children;
