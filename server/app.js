@@ -3,8 +3,8 @@ const mongoose = require('mongoose');
 const config = require('config');
 const chalk = require('chalk');
 const cors = require('cors');
+const path = require('path');
 const { urlencoded } = require('express');
-// const initDatabase = require('./startUp/initDatabase');
 const routes = require('./routes');
 
 const app = express();
@@ -16,12 +16,14 @@ app.use('/api', routes);
 
 const PORT = config.get('port') ?? 8080;
 
-// if (process.env.NODE_ENV === "production") {
-//     console.log("Production");
-// }
-// if (process.env.NODE_ENV === "development") {
-//     console.log("development");
-// }
+if (process.env.NODE_ENV === 'production') {
+   console.log('Production');
+   app.use('/', express.static(path.join(__dirname, 'client')));
+   const indexPath = path.join(__dirname, 'client', 'index.html');
+   app.get('*', (req, res) => {
+      res.send(indexPath);
+   });
+}
 
 async function start() {
    try {
