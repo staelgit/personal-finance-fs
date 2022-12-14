@@ -20,6 +20,8 @@ import {
    getOperationsLoadingStatus,
    loadOperationsList
 } from '../../../store/operationSlice';
+import localStorageService from '../../../services/localStorage.service';
+import authService from '../../../services/auth.service';
 
 const AppLoader = ({ children }) => {
    const dispatch = useDispatch();
@@ -38,8 +40,25 @@ const AppLoader = ({ children }) => {
 
    useEffect(() => {
       console.log('useEffect isLoggedIn from appLoader');
+
+      async function checkAndUpdateTokens() {
+         console.log('checkAndUpdateTokens:');
+         const expiresDate = localStorageService.getTokenExpiresDate();
+         const refreshToken = localStorageService.getRefreshToken();
+         const isExpired = refreshToken && expiresDate < Date.now();
+         if (isExpired) {
+            console.log('isExpired from checkAndUpdateTokens():', isExpired);
+            const data = await authService.refresh();
+            console.log('data from checkAndUpdateTokens():', data);
+            localStorageService.setTokens(data);
+         }
+      }
+
+      checkAndUpdateTokens();
+
       const result = isLoggedIn && !currentUser;
       console.log('result', result);
+
       if (result) {
          dispatch(loadCurrentUserData());
          dispatch(loadAccountsList());
