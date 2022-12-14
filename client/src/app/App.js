@@ -25,10 +25,7 @@ function App() {
                      <Route path="/app/income" component={Income} />
                      <Route path="/app/expense" component={Expense} />
                      <Route path="/app/accounts" component={CashAccounts} />
-                     <Route
-                        path="/app/user/:userId?/:edit?"
-                        component={UserProfile}
-                     />
+                     <Route path="/app/user/:userId?" component={UserProfile} />
                      <Redirect to="/" />
                   </Switch>
                </ProtectedRoute>
