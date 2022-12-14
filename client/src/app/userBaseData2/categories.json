@@ -1,14 +1,4 @@
 [
-  {"type": "expense", "title": "Кафе и рестораны" },
-  {"type": "expense", "title": "Продукты" },
-  {"type": "expense", "title": "Здоровье и фитнес" },
-  {"type": "expense", "title": "Развлечения" },
-  {"type": "expense", "title": "Хозтовары и личная гигиена" },
-  {"type": "expense", "title": "Авто" },
-  {"type": "expense", "title": "Транспорт" },
-  {"type": "expense", "title": "Лекарства" },
-  {"type": "expense", "title": "Бытовая техника" },
-  {"type": "income", "title": "Зарплата"},
-  {"type": "income", "title": "Проценты от вклада в банке"},
-  {"type": "income", "title": "Деньги полученные в подарок" }
+  {"type": "expense", "title": "тест Кафе и рестораны" },
+  {"type": "income", "title": "тест Зарплата"}
 ]

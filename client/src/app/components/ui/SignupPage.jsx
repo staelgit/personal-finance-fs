@@ -49,7 +49,7 @@ const SignUpPage = () => {
       setLoading(true);
       // setSuccessful(false);
       try {
-         dispatch(signUp(formValues));
+         await dispatch(signUp(formValues));
          // setSuccessful(true);
          // history.push('/');
       } catch (error) {

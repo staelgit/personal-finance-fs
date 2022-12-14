@@ -6,8 +6,9 @@ const router = express.Router({ mergeParams: true });
 router
    .route('/')
    .get(auth, async (req, res) => {
+      const userId = req.user._id;
       try {
-         const list = await CashAccount.find();
+         const list = await CashAccount.find({ userId });
          res.status(200).send(list);
       } catch (e) {
          res.status(500).json({

@@ -54,17 +54,17 @@ const AppLoader = ({ children }) => {
          }
       }
 
-      checkAndUpdateTokens();
+      checkAndUpdateTokens().then(() => {
+         const result = isLoggedIn && !currentUser;
+         console.log('result', result);
 
-      const result = isLoggedIn && !currentUser;
-      console.log('result', result);
-
-      if (result) {
-         dispatch(loadCurrentUserData());
-         dispatch(loadAccountsList());
-         dispatch(loadCategoriesList());
-         dispatch(loadOperationsList());
-      }
+         if (result) {
+            dispatch(loadCurrentUserData());
+            dispatch(loadAccountsList());
+            dispatch(loadCategoriesList());
+            dispatch(loadOperationsList());
+         }
+      });
    }, [isLoggedIn]);
 
    const isLoaderVisible =

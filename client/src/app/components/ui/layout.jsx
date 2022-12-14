@@ -1,6 +1,5 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-// import { Outlet } from 'react-router-dom';
 import Header from './header';
 import Footer from './footer';
 
@@ -12,7 +11,7 @@ const Layout = ({ children }) => {
                <Header />
             </div>
 
-            <div className="grow pb-3">{children}</div>
+            <div className="grow py-3">{children}</div>
 
             <div className="h-12">
                <Footer />

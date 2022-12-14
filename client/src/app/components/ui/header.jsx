@@ -1,7 +1,6 @@
 import React from 'react';
-// import User from './user';
 import Logo from './logo';
-// import { useAuth } from '../../hooks/useAuth';
+
 import { Link } from 'react-router-dom';
 import { ArrowLeftOnRectangleIcon } from '@heroicons/react/24/outline';
 import NavProfile from './navProfile';
@@ -10,7 +9,6 @@ import { useSelector } from 'react-redux';
 import { getIsLoggedIn } from '../../store/authSlice';
 
 const Header = () => {
-   // const { currentUser } = useAuth();
    const isLoggedIn = useSelector(getIsLoggedIn());
 
    return (

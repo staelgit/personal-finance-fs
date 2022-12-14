@@ -1,14 +1,14 @@
 import { createAction, createSlice } from '@reduxjs/toolkit';
 import categoryService from '../services/category.service';
-import isOutdated from '../utils/isOutdated';
+// import isOutdated from '../utils/isOutdated';
 
 const categorySlice = createSlice({
    name: 'categories',
    initialState: {
       entities: null,
       isLoading: false,
-      error: null,
-      lastFetch: null
+      error: null /*,
+      lastFetch: null */
    },
    reducers: {
       requested: (state) => {
@@ -16,7 +16,7 @@ const categorySlice = createSlice({
       },
       received: (state, action) => {
          state.entities = action.payload;
-         state.lastFetch = Date.now();
+         // state.lastFetch = Date.now();
          state.isLoading = false;
       },
       requestFiled: (state, action) => {
@@ -57,18 +57,18 @@ const updateCategoryRequested = createAction(
    'categories/updateCategoryRequested'
 );
 
-export const loadCategoriesList = () => async (dispatch, getState) => {
+export const loadCategoriesList = () => async (dispatch /*, getState */) => {
    console.log('dispatch loadCategoriesList');
-   const { lastFetch } = getState().categories;
-   if (isOutdated(lastFetch)) {
-      dispatch(requested());
-      try {
-         const { content } = await categoryService.get();
-         dispatch(received(content));
-      } catch (error) {
-         dispatch(requestFiled(error.message));
-      }
+   // const { lastFetch } = getState().categories;
+   // if (isOutdated(lastFetch)) {
+   dispatch(requested());
+   try {
+      const { content } = await categoryService.get();
+      dispatch(received(content));
+   } catch (error) {
+      dispatch(requestFiled(error.message));
    }
+   // }
 };
 
 export const createCategory = (payload, userId) => async (dispatch) => {
