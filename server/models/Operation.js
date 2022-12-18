@@ -14,11 +14,18 @@ const schema = new Schema(
          type: Schema.Types.ObjectId,
          ref: 'Category'
       },
-      cashAccountId: {
+      accountId: {
          type: Schema.Types.ObjectId,
          ref: 'CashAccount'
       },
+      amount: {
+         type: Number,
+         required: true
+      },
       comment: {
+         type: String
+      },
+      date: {
          type: String,
          required: true
       }

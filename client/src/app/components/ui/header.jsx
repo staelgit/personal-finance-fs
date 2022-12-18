@@ -21,7 +21,7 @@ const Header = () => {
             </div>
          )}
 
-         <div className="d-flex">
+         <div className="flex">
             {isLoggedIn ? (
                <NavProfile />
             ) : (

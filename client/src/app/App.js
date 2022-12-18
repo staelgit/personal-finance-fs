@@ -21,7 +21,10 @@ function App() {
             <Switch>
                <ProtectedRoute path="/app">
                   <Switch>
-                     <Route path="/app/operations" component={Operations} />
+                     <Route
+                        path="/app/operations/:add?"
+                        component={Operations}
+                     />
                      <Route path="/app/income" component={Income} />
                      <Route path="/app/expense" component={Expense} />
                      <Route path="/app/accounts" component={CashAccounts} />

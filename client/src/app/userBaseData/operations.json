@@ -4,6 +4,7 @@
     "type": "income",
     "categoryId": 20,
     "accountId": 2,
+    "amount": 75000,
     "comment": "таки получил я зарплату"
   },
   {
@@ -11,6 +12,7 @@
     "type": "expense",
     "categoryId": 4,
     "accountId": 1,
+    "amount": 3500.27,
     "comment": "купил какую то фигню... "
   }
 ]

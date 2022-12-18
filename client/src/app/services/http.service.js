@@ -34,9 +34,7 @@ http.interceptors.request.use(
          }
       } else {
          if (isExpired) {
-            console.log('isExpired:', isExpired);
             const data = await authService.refresh();
-            console.log('data from http.service:', data);
             localStorageService.setTokens(data);
          }
          const accessToken = localStorageService.getAccessToken();

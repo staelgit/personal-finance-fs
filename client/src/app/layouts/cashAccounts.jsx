@@ -41,6 +41,7 @@ const CashAccounts = () => {
    return (
       <div>
          <h1>Счета</h1>
+
          <div className="grid gap-4 grid-cols-3">
             <button
                className="inline-flex items-center justify-center py-3 px-5 leading-6 shadow text-sm font-medium rounded-md text-white bg-indigo-500 hover:bg-indigo-400 focus:outline-none my-2"
@@ -64,7 +65,6 @@ const CashAccounts = () => {
                Удалить
             </button>
          </div>
-
          <AccountsList accounts={accounts} />
       </div>
    );

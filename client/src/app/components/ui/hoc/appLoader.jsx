@@ -33,13 +33,10 @@ const AppLoader = ({ children }) => {
    const operationsLoadingStatus = useSelector(getOperationsLoadingStatus());
 
    console.log('AppLoader');
-   // console.log('currentUser from AppLoader', currentUser);
-   console.log('isLoggedIn from AppLoader', isLoggedIn);
-   // console.log('usersStatusLoading from AppLoader', usersStatusLoading);
-   // console.log('accountsStatusLoading:', accountsStatusLoading);
+   // console.log('isLoggedIn from AppLoader', isLoggedIn);
 
    useEffect(() => {
-      console.log('useEffect isLoggedIn from appLoader');
+      // console.log('useEffect isLoggedIn from appLoader');
 
       async function checkAndUpdateTokens() {
          console.log('checkAndUpdateTokens:');
@@ -49,7 +46,6 @@ const AppLoader = ({ children }) => {
          if (isExpired) {
             console.log('isExpired from checkAndUpdateTokens():', isExpired);
             const data = await authService.refresh();
-            console.log('data from checkAndUpdateTokens():', data);
             localStorageService.setTokens(data);
          }
       }

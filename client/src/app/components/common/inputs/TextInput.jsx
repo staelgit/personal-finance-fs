@@ -7,16 +7,18 @@ const TextField = (props) => {
    const [field, meta] = useField(props);
    const [showPassword, setShowPassword] = useState(false);
    const displayError = meta.touched && meta.error;
+   const { customClasses, ...rest } = props;
    const errorStyle =
       'absolute text-danger-dark ring-blue-700 ring-opacity-5 appearance-none rounded block w-full   sm:text-sm -bottom-6 ';
 
    const getInputClasses = () => {
       return (
-         'w-full py-2 rounded text-sm dark:bg-gray-700 h-12 focus:outline-none bg-white ring-1 ring-slate-900/10 hover:ring-slate-300 focus:outline-none focus:ring-2 focus:ring-sky-500 shadow-sm rounded-lg text-slate-400 pr-2 ' +
-         (props.icon ? 'pl-12' : 'pl-3') +
+         'w-full py-2 rounded text-sm dark:bg-gray-700  focus:outline-none bg-white ring-1 ring-slate-900/10 hover:ring-slate-300 focus:outline-none focus:ring-2 focus:ring-sky-500 shadow-sm rounded-lg text-slate-400 pr-2 ' +
+         (props.icon ? 'pl-12' : 'pl-3 ') +
          (displayError
-            ? ' ring-1 ring-blue-700 focus:border-blue-700 focus:ring-blue-700 focus:'
-            : '')
+            ? ' ring-1 ring-blue-700 focus:border-blue-700 focus:ring-blue-700 '
+            : '') +
+         (customClasses ? `${customClasses}` : ' h-12')
       );
    };
 
@@ -35,7 +37,7 @@ const TextField = (props) => {
                placeholder={props.label}
                id={props.name}
                {...field}
-               {...props}
+               {...rest}
                type={showPassword ? 'text' : props.type}
                className={getInputClasses()}
             />
@@ -64,7 +66,8 @@ TextField.propTypes = {
    icon: PropTypes.any,
    label: PropTypes.string,
    name: PropTypes.string,
-   type: PropTypes.string
+   type: PropTypes.string,
+   customClasses: PropTypes.string
 };
 
 TextField.defaultProps = {
