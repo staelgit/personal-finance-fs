@@ -13,6 +13,7 @@ import { getCategories } from '../../store/categorySlice';
 import { getAccounts } from '../../store/accounSlice';
 import { MultiSelectField } from '../common/inputs/MultiSelectField';
 import { createOperation } from '../../store/operationSlice';
+import { getModalData, setModalOff } from '../../store/modalSlice';
 
 const signUpSchema = Yup.object({
    date: Yup.date().required('Required'),
@@ -25,19 +26,39 @@ const signUpSchema = Yup.object({
    comment: Yup.string()
 });
 
-const initialValues = {
-   date: '',
-   categoryId: '',
-   accountId: '',
-   amount: '',
-   comment: ''
-};
-
 const NewOperation = () => {
-   // const location = useLocation();
+   // Data from redux
+
+   /*
+   const data = {
+      type: 'expense',
+      title: 'New expense',
+      componentId: ''
+   };
+*/
+
+   /*
+   const data = {
+      type: 'income',
+      title: 'New income',
+      componentId: ''
+   };
+*/
+
+   /*
+   const data = {
+      type: 'update', // income, expense, update
+      title: 'Update operation', // New income, New expense, Update operation
+      componentId: '639ec91504e8899638c375dc' // айди операции по обновлению
+   };
+*/
+   const data = useSelector(getModalData());
+   const { type, title, componentId } = data;
+   console.log('data:', data);
+
    const history = useHistory();
+   // const location = useLocation();
    // const type = location.state.state.type;
-   const type = 'income';
    const [loading, setLoading] = useState(false);
    const message = useSelector(getAuthErrors());
    const categories = useSelector(getCategories());
@@ -52,6 +73,16 @@ const NewOperation = () => {
    useEffect(() => {
       dispatch(clearMessage());
    }, [dispatch]);
+
+   const initialValues = componentId
+      ? {}
+      : {
+           date: '',
+           categoryId: '',
+           accountId: '',
+           amount: '',
+           comment: ''
+        };
 
    const categoriesOptions = categories
       .filter((c) => c.type === type)
@@ -73,9 +104,10 @@ const NewOperation = () => {
       setLoading(true);
       // setSuccessful(false);
       try {
-         dispatch(createOperation(newOperation, currentUserId));
+         await dispatch(createOperation(newOperation, currentUserId));
+         dispatch(setModalOff());
          // setSuccessful(true);
-         history.goBack();
+         history.push('/app/operations');
       } catch (error) {
          dispatch(setMessage(error.message));
          // setSuccessful(false);
@@ -99,7 +131,7 @@ const NewOperation = () => {
    return (
       <>
          <Card className="m-auto mt-3 w-96 pt-3 pb-5 bg-white">
-            <Card.Title>{`New ${type}`}</Card.Title>
+            <Card.Title>{title}</Card.Title>
             <FormikProvider value={formik}>
                {/* {!successful && ( */}
                <form
@@ -143,7 +175,8 @@ const NewOperation = () => {
                         {loading && <SpinLoading />} Create
                      </button>
                      <button
-                        onClick={() => history.goBack()}
+                        onClick={() => dispatch(setModalOff())}
+                        type="button"
                         className="ml-2 flex justify-center items-center w-24 p-3 bg-danger rounded text-white hover:bg-danger-dark"
                      >
                         Cancel

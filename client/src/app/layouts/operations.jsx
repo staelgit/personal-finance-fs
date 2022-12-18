@@ -12,14 +12,15 @@ import { PlusIcon, MinusIcon } from '@heroicons/react/24/outline';
 import _ from 'lodash';
 import { paginate } from '../utils/paginate';
 import GroupList from '../components/common/groupList';
-import { useHistory, useParams } from 'react-router-dom';
+import { /* useHistory, */ useParams } from 'react-router-dom';
 import NewOperation from '../components/ui/newOperation';
+import { setModalOn } from '../store/modalSlice';
 
-const PAGING_SIZE = 8;
+const PAGING_SIZE = 100;
 
 const Operations = () => {
    const { add } = useParams();
-   const history = useHistory();
+   // const history = useHistory();
    // const location = useLocation();
    const dispatch = useDispatch();
    const operations = useSelector(getOperations());
@@ -145,11 +146,18 @@ const Operations = () => {
                               <button
                                  className="inline-flex items-center justify-center p-2 leading-6 shadow text-5xl font-medium rounded-full text-white bg-success hover:bg-success-dark focus:outline-none"
                                  type="button"
-                                 onClick={() =>
-                                    history.push('/app/operations/add', {
-                                       state: { type: 'income' }
-                                    })
-                                 }
+                                 onClick={() => {
+                                    dispatch(
+                                       setModalOn({
+                                          type: 'operation',
+                                          data: {
+                                             type: 'income',
+                                             title: 'New income',
+                                             componentId: ''
+                                          }
+                                       })
+                                    );
+                                 }}
                                  title="Add income"
                               >
                                  <PlusIcon
@@ -163,11 +171,18 @@ const Operations = () => {
                               <button
                                  className="inline-flex items-center justify-center p-2 leading-6 shadow text-5xl font-medium rounded-full text-white bg-danger hover:bg-danger-dark focus:outline-none"
                                  type="button"
-                                 onClick={() =>
-                                    history.push('/app/operations/add', {
-                                       state: { type: 'expense' }
-                                    })
-                                 }
+                                 onClick={() => {
+                                    dispatch(
+                                       setModalOn({
+                                          type: 'operation',
+                                          data: {
+                                             type: 'expense',
+                                             title: 'New expense',
+                                             componentId: ''
+                                          }
+                                       })
+                                    );
+                                 }}
                                  title="Add expense"
                               >
                                  <MinusIcon
