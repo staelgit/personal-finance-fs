@@ -101,20 +101,8 @@ export const updateAccount = (payload) => async (dispatch) => {
 export const getAccounts = () => (state) => state.accounts.entities;
 export const getAccountsLoadingStatus = () => (state) =>
    state.accounts.isLoading;
-export const getAccountsByIds = (accountsIds) => (state) => {
-   if (state.accounts.entities) {
-      const accountsArray = [];
-      for (const accId of accountsIds) {
-         for (const account of state.accounts.entities) {
-            if (account._id === accId) {
-               accountsArray.push(account);
-               break;
-            }
-         }
-      }
-      return accountsArray;
-   }
-   return [];
+export const getAccountById = (accountId) => (state) => {
+   return state.accounts.entities.find((a) => a._id === accountId);
 };
 
 export default accountsReducer;

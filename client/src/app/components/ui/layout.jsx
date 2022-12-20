@@ -8,6 +8,7 @@ import { getModalStatus } from '../../store/modalSlice';
 
 const Layout = ({ children }) => {
    const isModal = useSelector(getModalStatus());
+
    // const isModal = true;
    console.log('isModal:', isModal);
    return (

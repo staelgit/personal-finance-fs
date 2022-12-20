@@ -66,8 +66,8 @@ const EditUserPage = () => {
                   className="space-y-3 min-w-[200px] w-full"
                   onSubmit={formik.handleSubmit}
                >
-                  <TextField label="Username" name="name" icon={UserIcon} />
-                  <TextField label="Email" name="email" icon={EnvelopeIcon} />
+                  <TextField label="Имя" name="name" icon={UserIcon} />
+                  <TextField label="Почта" name="email" icon={EnvelopeIcon} />
                   <div className="pt-2">
                      <Button disabled={loading}>
                         {loading && <SpinLoading />} Обновить

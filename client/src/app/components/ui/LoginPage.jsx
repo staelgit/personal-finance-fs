@@ -76,21 +76,21 @@ const LoginPage = () => {
    return (
       <>
          <div className="text-slate-900">
-            <Card.Title>Login</Card.Title>
+            <Card.Title>Войти</Card.Title>
             <FormikProvider value={formik}>
                <form
                   className="space-y-6 min-w-[200px] w-full"
                   onSubmit={formik.handleSubmit}
                >
-                  <TextField label="Email" name="email" icon={EnvelopeIcon} />
+                  <TextField label="Почта" name="email" icon={EnvelopeIcon} />
                   <TextField
-                     label="Password"
+                     label="Пароль"
                      name="password"
                      type="password"
                      icon={KeyIcon}
                   />
                   <div className="pt-2">
-                     <Button>Log In</Button>
+                     <Button>Войти</Button>
                      {/*                     <Button disabled={loading}>
                         {loading && <SpinLoading />} Log In
                      </Button> */}

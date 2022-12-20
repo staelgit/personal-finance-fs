@@ -8,12 +8,18 @@ import SpinLoading from '../common/SpinLoader';
 import TextField from '../common/inputs/TextInput';
 import Card from '../common/Card';
 import Alert from '../common/Alert';
-import { useHistory /*, useLocation */ } from 'react-router-dom';
+// import { useHistory /*, useLocation */ } from 'react-router-dom';
 import { getCategories } from '../../store/categorySlice';
 import { getAccounts } from '../../store/accounSlice';
 import { MultiSelectField } from '../common/inputs/MultiSelectField';
-import { createOperation } from '../../store/operationSlice';
+import {
+   createOperation,
+   getOperationById,
+   updateOperation
+} from '../../store/operationSlice';
 import { getModalData, setModalOff } from '../../store/modalSlice';
+import Button from './Button';
+import transformDate from '../../utils/transformDate';
 
 const signUpSchema = Yup.object({
    date: Yup.date().required('Required'),
@@ -27,87 +33,80 @@ const signUpSchema = Yup.object({
 });
 
 const NewOperation = () => {
-   // Data from redux
-
-   /*
-   const data = {
-      type: 'expense',
-      title: 'New expense',
-      componentId: ''
-   };
-*/
-
-   /*
-   const data = {
-      type: 'income',
-      title: 'New income',
-      componentId: ''
-   };
-*/
-
-   /*
-   const data = {
-      type: 'update', // income, expense, update
-      title: 'Update operation', // New income, New expense, Update operation
-      componentId: '639ec91504e8899638c375dc' // айди операции по обновлению
-   };
-*/
    const data = useSelector(getModalData());
    const { type, title, componentId } = data;
    console.log('data:', data);
 
-   const history = useHistory();
-   // const location = useLocation();
-   // const type = location.state.state.type;
+   // const history = useHistory();
    const [loading, setLoading] = useState(false);
    const message = useSelector(getAuthErrors());
    const categories = useSelector(getCategories());
    const accounts = useSelector(getAccounts());
    const dispatch = useDispatch();
    const currentUserId = useSelector(getCurrentUserId());
-   // console.log('categories:', categories);
-   console.log('accounts:', accounts);
-   console.log('currentUserId:', currentUserId);
 
-   console.log('type:', type);
+   let initialValues;
+
+   if (type === 'update') {
+      const updateOperation = useSelector(getOperationById(componentId));
+      console.log('updateOperation:', updateOperation);
+      const { _id, date, categoryId, accountId, type, amount, comment } =
+         updateOperation;
+
+      initialValues = {
+         _id,
+         date: transformDate(date, 'forInput'),
+         categoryId,
+         accountId,
+         type,
+         amount,
+         comment
+      };
+   } else {
+      initialValues = {
+         date: '',
+         categoryId: '',
+         accountId: '',
+         type,
+         amount: '',
+         comment: ''
+      };
+   }
+   // console.log('initialValues:', initialValues);
+   // console.log('categories:', categories);
+   // console.log('accounts:', accounts);
+
    useEffect(() => {
       dispatch(clearMessage());
    }, [dispatch]);
 
-   const initialValues = componentId
-      ? {}
-      : {
-           date: '',
-           categoryId: '',
-           accountId: '',
-           amount: '',
-           comment: ''
-        };
-
    const categoriesOptions = categories
-      .filter((c) => c.type === type)
+      .filter((c) => c.type === initialValues.type)
       .map((c) => {
          return { value: c._id, label: c.title };
       });
-   // console.log('options:', options);
+   // console.log('categoriesOptions:', categoriesOptions);
 
    const accountsOptions = accounts.map((a) => {
       return { value: a._id, label: a.title };
    });
-   console.log('accountsOptions:', accountsOptions);
+   // console.log('accountsOptions:', accountsOptions);
 
    const handleSubmit = async (formValues) => {
-      console.log('handleSubmit:');
+      // console.log('handleSubmit:');
+      // console.log('formValues:', formValues);
       const newOperation = transformData(formValues);
       console.log('newOperation:', newOperation);
 
       setLoading(true);
       // setSuccessful(false);
       try {
-         await dispatch(createOperation(newOperation, currentUserId));
+         type === 'update'
+            ? await dispatch(updateOperation(newOperation))
+            : await dispatch(createOperation(newOperation, currentUserId));
          dispatch(setModalOff());
          // setSuccessful(true);
-         history.push('/app/operations');
+         // history.push('/app/operations');
       } catch (error) {
          dispatch(setMessage(error.message));
          // setSuccessful(false);
@@ -117,9 +116,9 @@ const NewOperation = () => {
    };
 
    const transformData = (formValues) => {
-      const date = new Date(formValues.date).getTime().toString();
+      const date = transformDate(formValues.date, 'forDatabase');
       const amount = Number(Number(formValues.amount).toFixed(2));
-      return { ...formValues, date, amount, type };
+      return { ...formValues, date, amount };
    };
 
    const formik = useFormik({
@@ -130,7 +129,7 @@ const NewOperation = () => {
 
    return (
       <>
-         <Card className="m-auto mt-3 w-96 pt-3 pb-5 bg-white">
+         <Card className="w-96 pt-5 pb-6 bg-white">
             <Card.Title>{title}</Card.Title>
             <FormikProvider value={formik}>
                {/* {!successful && ( */}
@@ -139,48 +138,49 @@ const NewOperation = () => {
                   onSubmit={formik.handleSubmit}
                >
                   <TextField
-                     label="Date"
+                     label="Дата"
                      name="date"
                      type="date"
                      customClasses={'h-9'}
                   />
                   <Field
-                     label="Category"
+                     label="Категория"
                      name="categoryId"
                      component={MultiSelectField}
                      options={categoriesOptions}
                   />
                   <Field
-                     label="Account"
+                     label="Кошелек"
                      name="accountId"
                      component={MultiSelectField}
                      options={accountsOptions}
                   />
                   <TextField
-                     label="Amount"
+                     label="Сумма"
                      name="amount"
                      customClasses={'h-9'}
                   />
                   <TextField
-                     label="Comment"
+                     label="Комментарий"
                      name="comment"
                      customClasses={'h-9'}
                   />
-                  <div className="pt-2 flex">
-                     <button
+                  <div className="pt-2 flex justify-between">
+                     <Button
                         disabled={loading}
                         type="submit"
-                        className="flex justify-center items-center w-24 p-3 bg-success rounded text-white hover:bg-success-dark"
+                        className="w-6/12"
                      >
-                        {loading && <SpinLoading />} Create
-                     </button>
-                     <button
+                        {loading && <SpinLoading />} Сохранить
+                     </Button>
+                     <Button
+                        buttonType="cancel"
                         onClick={() => dispatch(setModalOff())}
                         type="button"
-                        className="ml-2 flex justify-center items-center w-24 p-3 bg-danger rounded text-white hover:bg-danger-dark"
+                        className="ml-2 w-6/12"
                      >
-                        Cancel
-                     </button>
+                        Отмена
+                     </Button>
                   </div>
                </form>
                {/* )} */}

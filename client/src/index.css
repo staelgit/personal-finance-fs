@@ -15,9 +15,7 @@
     .main-menu-item.active {
         @apply relative after:absolute after:w-full after:h-full after:border-b-primary after:border-b-2 pointer-events-none text-black
     }
-    .operations-filter.active {
-        @apply bg-secondary text-white
-    }
+
 }
 
 .btn {

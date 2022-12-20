@@ -105,20 +105,8 @@ export const updateOperation = (payload) => async (dispatch) => {
 export const getOperations = () => (state) => state.operations.entities;
 export const getOperationsLoadingStatus = () => (state) =>
    state.operations.isLoading;
-export const getOperationsByIds = (operationsIds) => (state) => {
-   if (state.operations.entities) {
-      const operationsArray = [];
-      for (const opId of operationsIds) {
-         for (const operation of state.operations.entities) {
-            if (operation._id === opId) {
-               operationsArray.push(operation);
-               break;
-            }
-         }
-      }
-      return operationsArray;
-   }
-   return [];
+export const getOperationById = (operationId) => (state) => {
+   return state.operations.entities.find((o) => o._id === operationId);
 };
 
 export default operationsReducer;

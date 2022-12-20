@@ -25,14 +25,14 @@ const Login = () => {
                {/* <RegisterForm /> */}
                <SignupPage />
                <div className="mt-3">
-                  Already have account?{' '}
+                  Уже есть аккаунт?{' '}
                   <StyledNavLink
                      to="login"
                      styleType="underline"
                      className="text-sm text-slate-600"
                      onClick={toggleFormType}
                   >
-                     Log In
+                     Войти
                   </StyledNavLink>
                </div>
             </Card>
@@ -42,14 +42,14 @@ const Login = () => {
                {/* <LoginForm /> */}
                <LoginPage />
                <div className="mt-3">
-                  Don`t have account?{' '}
+                  Еще нет аккаунта?{' '}
                   <StyledNavLink
                      to="login"
                      styleType="underline"
                      className="text-sm text-slate-600"
                      onClick={toggleFormType}
                   >
-                     Sign Up
+                     Зарегистрироваться
                   </StyledNavLink>
                </div>
             </Card>

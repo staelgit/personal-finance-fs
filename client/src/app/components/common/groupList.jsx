@@ -10,13 +10,15 @@ const GroupList = ({
    selectedItem
 }) => {
    return (
-      <div className="rounded-2xl border py-1 px-0.5  bg-secondary-ultralight">
+      <div className="rounded-full border py-1 px-0.5  bg-secondary-ultralight">
          {Object.keys(items).map((key) => {
             return (
                <button
                   key={items[key][valueProperty]}
-                  className={`operations-filter rounded-2xl bg-white border mx-0.5 px-2 ${
-                     items[key].name === selectedItem.name ? 'active' : ''
+                  className={`operations-filter rounded-full bg-white border mx-0.5 px-3 pb-1 hover:ring-secondary hover:ring-2 ${
+                     items[key].name === selectedItem.name
+                        ? 'bg-secondary text-white pointer-events-none'
+                        : ''
                   }`}
                   onClick={() => onItemSelect(items[key])}
                   role="button"

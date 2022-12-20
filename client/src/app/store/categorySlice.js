@@ -105,20 +105,8 @@ export const updateCategory = (payload) => async (dispatch) => {
 export const getCategories = () => (state) => state.categories.entities;
 export const getCategoriesLoadingStatus = () => (state) =>
    state.categories.isLoading;
-export const getCategoriesByIds = (categoriesIds) => (state) => {
-   if (state.categories.entities) {
-      const categoriesArray = [];
-      for (const catId of categoriesIds) {
-         for (const category of state.categories.entities) {
-            if (category._id === catId) {
-               categoriesArray.push(category);
-               break;
-            }
-         }
-      }
-      return categoriesArray;
-   }
-   return [];
+export const getCategoryById = (categoryId) => (state) => {
+   return state.categories.entities.find((c) => c._id === categoryId);
 };
 
 export default categoriesReducer;

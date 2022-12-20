@@ -68,18 +68,18 @@ const SignUpPage = () => {
 
    return (
       <>
-         <Card.Title>Sign Up</Card.Title>
+         <Card.Title>Зарегистрироваться</Card.Title>
          <FormikProvider value={formik}>
             {/* {!successful && ( */}
             <form
                className="space-y-3 min-w-[200px] w-full"
                onSubmit={formik.handleSubmit}
             >
-               <TextField label="Username" name="name" icon={UserIcon} />
-               <TextField label="Email" name="email" icon={EnvelopeIcon} />
+               <TextField label="Имя" name="name" icon={UserIcon} />
+               <TextField label="Почта" name="email" icon={EnvelopeIcon} />
 
                <TextField
-                  label="Password"
+                  label="Пароль"
                   name="password"
                   type="password"
                   icon={KeyIcon}

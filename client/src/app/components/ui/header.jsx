@@ -33,7 +33,7 @@ const Header = () => {
                      className="rotate-180 mr-1 h-5 w-5"
                      aria-hidden="true"
                   />
-                  Login
+                  Войти
                </Link>
             )}
          </div>

@@ -11,21 +11,19 @@ const Pagination = ({ itemsCount, pageSize, onPageChange, currentPage }) => {
 
    return (
       <nav>
-         <ul className="pagination">
+         <ul className="pagination flex">
             {pages.map((page) => (
-               <li
+               <button
                   key={`page_${page}`}
-                  className={`page-item ${
-                     page === currentPage ? 'active' : ''
+                  className={`page-item mx-2  px-2 rounded  border hover:bg-secondary-ultralight ${
+                     page === currentPage
+                        ? 'ring-2 ring-offset-1 ring-primary pointer-events-none'
+                        : ''
                   }`}
+                  onClick={() => onPageChange(page)}
                >
-                  <button
-                     className="page-link"
-                     onClick={() => onPageChange(page)}
-                  >
-                     {page}
-                  </button>
-               </li>
+                  <li>{page}</li>
+               </button>
             ))}
          </ul>
       </nav>
