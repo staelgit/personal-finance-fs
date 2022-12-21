@@ -17,56 +17,13 @@ const Table = ({ onSort, selectedSort, columns, data, children }) => {
 };
 
 Table.propTypes = {
-   data: PropTypes.arrayOf(
-      PropTypes.shape({
-         _id: PropTypes.string,
-         name: PropTypes.string,
-         bookmark: PropTypes.bool,
-         rate: PropTypes.number,
-         completedMeetings: PropTypes.number,
-         qualities: PropTypes.array,
-         profession: PropTypes.string
-      })
-   ).isRequired,
+   data: PropTypes.array.isRequired,
    onSort: PropTypes.func.isRequired,
    selectedSort: PropTypes.shape({
       path: PropTypes.string,
       order: PropTypes.string
    }),
-   columns: PropTypes.shape({
-      name: PropTypes.shape({
-         path: PropTypes.string,
-         name: PropTypes.string,
-         component: PropTypes.oneOfType([PropTypes.string, PropTypes.func])
-      }),
-
-      qualities: PropTypes.shape({
-         path: PropTypes.string,
-         name: PropTypes.string,
-         component: PropTypes.oneOfType([PropTypes.string, PropTypes.func])
-      }),
-      profession: PropTypes.shape({
-         path: PropTypes.string,
-         name: PropTypes.string,
-         component: PropTypes.oneOfType([PropTypes.string, PropTypes.func])
-      }),
-      completedMeetings: PropTypes.shape({
-         path: PropTypes.string,
-         name: PropTypes.string,
-         component: PropTypes.oneOfType([PropTypes.string, PropTypes.func])
-      }),
-      rate: PropTypes.shape({ path: PropTypes.string, name: PropTypes.string }),
-      bookmark: PropTypes.shape({
-         path: PropTypes.string,
-         name: PropTypes.string,
-         component: PropTypes.oneOfType([PropTypes.string, PropTypes.func])
-      }),
-      delete: PropTypes.shape({
-         path: PropTypes.string,
-         name: PropTypes.string,
-         component: PropTypes.oneOfType([PropTypes.string, PropTypes.func])
-      })
-   }).isRequired,
+   columns: PropTypes.object.isRequired,
    children: PropTypes.array
 };
 

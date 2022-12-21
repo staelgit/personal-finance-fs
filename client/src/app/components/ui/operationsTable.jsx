@@ -1,85 +1,102 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-// import Bookmark from '../common/bookmark';
 
 import Table from '../common/table';
 import EditButton from '../ui/editButton';
 import DeleteButton from './deleteButton';
-// import DateTableCell from './DateTableCell';
 import CategoryTableCell from './CategoryTableCell';
-// import AccountTableCell from './AccountTableCell';
-// import { Link } from 'react-router-dom';
-// import Profession from './profession';
-// import QualitiesList from './qualities';
+import { setModalOn } from '../../store/modalSlice';
+import { useDispatch } from 'react-redux';
 
-const OperationsTable = ({
-   operations,
-   onSort,
-   selectedSort
-   // onToggleBookmark
-}) => {
+const OperationsTable = ({ operations, onSort, selectedSort }) => {
+   function handleUpdateOperation(id) {
+      dispatch(
+         setModalOn({
+            type: 'operation',
+            data: {
+               type: 'update',
+               title: 'Изменить операцию',
+               componentId: id
+            }
+         })
+      );
+   }
+
+   function handleDelete(id) {
+      dispatch(
+         setModalOn({
+            type: 'delete',
+            data: {
+               type: 'operation',
+               id
+            }
+         })
+      );
+   }
+
+   const dispatch = useDispatch();
    const columns = {
-      /*      name: {
-         path: 'name',
-         name: 'Имя',
-         component: (user) => <Link to={`/users/${user._id}`}>{user.name}</Link>
-      },
-      qualities: {
-         name: 'Качества',
-         component: (user) => <QualitiesList qualities={user.qualities} />
-      },
-      profession: {
-         name: 'Профессия',
-         component: (user) => <Profession id={user.profession} />
-      },
-      completedMeetings: { path: 'completedMeetings', name: 'Встретился, раз' },
-      rate: { path: 'rate', name: 'Оценка' },
-      bookmark: {
-         path: 'bookmark',
-         name: 'Избранное',
-         component: (user) => (
-            <Bookmark
-               {...{
-                  bookmark: user.bookmark,
-                  _id: user._id,
-                  onToggleBookmark
-               }}
-            />
-         )
-      } */
       date: {
          path: 'date',
          name: 'Дата',
-         component: (operation) => operation.dateString
+         component: (operation) => (
+            <div className={'py-2 px-1 leading-4 text-center'}>
+               {operation.dateString}
+            </div>
+         )
       },
 
       category: {
          path: 'category',
          name: 'Категория',
-         component: (operation) => <CategoryTableCell operation={operation} />
+         component: (operation) => (
+            <div className={'py-2 px-1 leading-4 text-start'}>
+               <CategoryTableCell operation={operation} />
+            </div>
+         )
       },
       account: {
          path: 'account',
          name: 'Кошелек',
-         component: (operation) => operation.account
+         component: (operation) => (
+            <div className={'py-2 px-1 leading-4 text-center'}>
+               {operation.account}
+            </div>
+         )
       },
       income: {
          path: 'incomeAmount',
          name: 'Доход',
-         component: (operation) =>
-            operation.type === 'income' ? operation.amount : '-'
+         component: (operation) => (
+            <div className={'py-2 px-1 leading-4 text-center'}>
+               {operation.type === 'income' ? operation.amount : '-'}
+            </div>
+         )
       },
       expense: {
          path: 'expenseAmount',
          name: 'Расход',
-         component: (operation) =>
-            operation.type === 'expense' ? operation.amount : '-'
+         component: (operation) => (
+            <div className={'py-2 px-1 leading-4 text-center'}>
+               {operation.type === 'expense' ? operation.amount : '-'}
+            </div>
+         )
       },
       editButton: {
-         component: (operation) => <EditButton id={operation._id} />
+         component: (operation) => (
+            <div className={'py-2 px-1  leading-4 text-center'}>
+               <EditButton
+                  onClick={() => handleUpdateOperation(operation._id)}
+               />
+            </div>
+         )
       },
       deleteButton: {
-         component: (operation) => <DeleteButton id={operation._id} />
+         component: (operation) => (
+            <div className={'py-2 px-1 leading-4 text-center'}>
+               <DeleteButton onClick={() => handleDelete(operation._id)} />
+            </div>
+         )
       }
    };
    return (
@@ -100,8 +117,7 @@ OperationsTable.propTypes = {
    selectedSort: PropTypes.shape({
       path: PropTypes.string,
       order: PropTypes.string
-   }) /*,
-   onToggleBookmark: PropTypes.func */
+   })
 };
 
 export default OperationsTable;

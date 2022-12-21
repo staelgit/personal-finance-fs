@@ -1,12 +1,17 @@
 import React from 'react';
-// import useMockData from '../utils/mockData';
 import { useSelector, useDispatch } from 'react-redux';
 import { getIsLoggedIn, signIn } from '../store/authSlice';
-import StyledNavLink from '../components/ui/StyledNavLink';
+// import StyledNavLink from '../components/ui/StyledNavLink';
+import Button from '../components/ui/Button';
+import { useHistory } from 'react-router-dom';
+import Card from '../components/common/Card';
+import Accounts from '../components/ui/accounts';
+import Categories from '../components/ui/categories';
 
 const Main = () => {
    const isLoggedIn = useSelector(getIsLoggedIn());
    const dispatch = useDispatch();
+   const history = useHistory();
 
    const handleLogin = async () => {
       const demoUser = { email: 'demo@gmail.com', password: '3gs6A9bVFB' };
@@ -18,71 +23,81 @@ const Main = () => {
       <div>
          {isLoggedIn ? (
             <>
-               <h3>1. Состояние счетов сумма</h3>
-            </>
-         ) : (
-            <>
-               <h1>Приветственное слово</h1>
-               <p>
-                  Здравствуй дорогой друг. Та находишься на сайте, который
-                  предоставляет онлайн сервис для учета доходов и расходов.
-               </p>
-               <p>
-                  Для того чтобы воспользоваться данным сервисом нужно{' '}
-                  <StyledNavLink
-                     to="login"
-                     styleType="underline"
-                     className="text-sm text-slate-600"
-                  >
-                     авторизоваться
-                  </StyledNavLink>
-                  .{' '}
-               </p>
-               <p>
-                  Так же, для демонстрации возможностей сервиса есть готовый
-                  пользователь. Ты можешь{' '}
-                  <StyledNavLink
-                     to=""
-                     styleType="underline"
-                     className="text-sm text-slate-600"
-                     onClick={handleLogin}
-                  >
-                     войти под ним
-                  </StyledNavLink>{' '}
-                  и посмотреть как все выглядит уже в `рабочем` состоянии.{' '}
-               </p>
-            </>
-         )}
-      </div>
-   );
+               <div className="grid grid-cols-3 gap-3 ">
+                  <div>
+                     <Accounts />
+                  </div>
 
-   /*   const { error, initialize, progress, status } = useMockData();
-   const handleClick = () => {
-      initialize();
-   };
-   return (
-      <div>
-         <h1>Main Page</h1>
-         {isLoggedIn ? (
-            <>
-               <h3>Инициализация данных в FireBase</h3>
-               <ul>
-                  <li>Status: {status}</li>
-                  <li>Progress: {progress}%</li>
-                  {error && <li>Error: {error}</li>}
-               </ul>
-               <button className="btn btn-primary" onClick={handleClick}>
-                  Инициализировать
-               </button>
+                  <div>
+                     <Categories type="income" />
+                  </div>
+                  <div>
+                     <Categories type="expense" />
+                  </div>
+               </div>
+
+               <Card className="mt-3">
+                  <Card.Title>2.аналитика</Card.Title>
+               </Card>
             </>
          ) : (
-            <h3>
-               Чтобы воспользоваться нашим сервисом нужно быть авторизованным
-            </h3>
+            <main>
+               <div className="relative px-6 lg:px-8">
+                  <div className="mx-auto pt-6 sm:pt-20 ">
+                     <div>
+                        <div>
+                           <h1 className="text-4xl font-bold tracking-tight sm:text-center sm:text-6xl">
+                              Здравствуй дорогой друг
+                           </h1>
+                           <p className="mt-6 text-lg leading-8 text-gray-600 sm:text-center">
+                              Та находишься на сайте, который предоставляет
+                              онлайн сервис для учета доходов и расходов. Для
+                              того чтобы воспользоваться данным сервисом нужно
+                              авторизоваться. Так же, для демонстрации
+                              возможностей сервиса есть готовый пользователь. Ты
+                              можешь войти под ним и посмотреть как все выглядит
+                              уже в `рабочем` состоянии
+                           </p>
+                           <div className="mt-8 flex gap-x-4 sm:justify-center">
+                              <Button onClick={() => history.push('/login')}>
+                                 Начать
+                                 <span aria-hidden="true">&rarr;</span>
+                              </Button>
+                              <Button
+                                 buttonType="secondary"
+                                 onClick={handleLogin}
+                              >
+                                 Демо
+                                 <span aria-hidden="true">&rarr;</span>
+                              </Button>
+                           </div>
+                        </div>
+                        {/* <div className="hidden sm:mt-8 sm:flex sm:justify-center">
+                           <div className="relative overflow-hidden rounded-full py-1.5 px-4 text-sm leading-6 ring-1 ring-gray-900/10 hover:ring-gray-900/20">
+                              <span className="text-secondary">
+                                 Тут можно написать какой то текст и куда то
+                                 отослать или удали потом.{' '}
+                                 <a
+                                    href="#"
+                                    className="font-semibold text-indigo-600"
+                                 >
+                                    <span
+                                       className="absolute inset-0"
+                                       aria-hidden="true"
+                                    />
+                                    Читать далее{' '}
+                                    <span aria-hidden="true">&rarr;</span>
+                                 </a>
+                              </span>
+                           </div>
+                        </div> */}
+                     </div>
+                  </div>
+               </div>
+            </main>
          )}
       </div>
    );
-   */
 };
 
 export default Main;

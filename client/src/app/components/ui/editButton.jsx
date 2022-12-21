@@ -1,29 +1,13 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { PencilSquareIcon } from '@heroicons/react/24/outline';
-import { setModalOn } from '../../store/modalSlice';
-import { useDispatch } from 'react-redux';
 
-const EditButton = ({ id }) => {
-   const dispatch = useDispatch();
+const EditButton = ({ className: customClasses = '', ...rest }) => {
    return (
       <button
          title={'Редактировать'}
-         className={
-            'w-8 h-8 -m-2 flex justify-center items-center rounded-full hover:bg-secondary-ultralight'
-         }
-         onClick={() => {
-            dispatch(
-               setModalOn({
-                  type: 'operation',
-                  data: {
-                     type: 'update',
-                     title: 'Изменить операцию',
-                     componentId: id
-                  }
-               })
-            );
-         }}
+         className={`w-8 h-8 flex justify-center items-center rounded-full text-gray-300 hover:bg-secondary-ultralight hover:text-secondary-dark ${customClasses}`}
+         {...rest}
       >
          <PencilSquareIcon className={'w-5 h-5'} />
       </button>
@@ -31,7 +15,7 @@ const EditButton = ({ id }) => {
 };
 
 EditButton.propTypes = {
-   id: PropTypes.string.isRequired
+   className: PropTypes.string
 };
 
 export default EditButton;

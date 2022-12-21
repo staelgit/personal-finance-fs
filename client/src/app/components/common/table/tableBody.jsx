@@ -14,18 +14,14 @@ const TableBody = ({ data, columns }) => {
       return _.get(item, columns[column].path);
    };
    return (
-      <tbody className="px-4 border-t border-gray-200 divide-y divide-secondary-light">
+      <tbody className="px-4 divide-y divide-secondary-light group ">
          {data.map(
             (
                item // берем одну операцию
             ) => (
                <tr key={item._id}>
                   {Object.keys(columns).map((column) => (
-                     <td key={column}>
-                        <div className={'py-2 px-3 leading-4 text-center'}>
-                           {renderContent(column, item)}
-                        </div>
-                     </td>
+                     <td key={column}>{renderContent(column, item)}</td>
                   ))}
                </tr>
             )

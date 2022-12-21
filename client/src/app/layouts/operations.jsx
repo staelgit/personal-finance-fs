@@ -3,7 +3,6 @@ import React, { useEffect, useState } from 'react';
 import { getOperations } from '../store/operationSlice';
 import { useDispatch, useSelector } from 'react-redux';
 // import { getCurrentUserId } from '../store/authSlice';
-import { PlusIcon, MinusIcon } from '@heroicons/react/24/outline';
 import _ from 'lodash';
 import { paginate } from '../utils/paginate';
 import GroupList from '../components/common/groupList';
@@ -12,6 +11,7 @@ import OperationsTable from '../components/ui/operationsTable';
 import Pagination from '../components/common/pagination';
 import { getCategories } from '../store/categorySlice';
 import { getAccounts } from '../store/accounSlice';
+import RoundButton from '../components/ui/roundButton';
 
 const PAGING_SIZE = 6;
 
@@ -30,7 +30,7 @@ const Operations = () => {
    const [selectedType, setSelectedType] = useState(operationsTypes[0]);
    const [sortBy, setSortBy] = useState({ path: 'date', order: 'desc' });
    const [searchBy, setSearchBy] = useState('');
-   console.log('operations from redux:', operations);
+   // console.log('operations from redux:', operations);
 
    useEffect(() => {
       setCurrentPage(1);
@@ -81,7 +81,7 @@ const Operations = () => {
 
    const transformedFilteredOperations =
       transformOperationsForSort(filteredOperations);
-   console.log('transformedFilteredOperations:', transformedFilteredOperations);
+   // console.log('transformedFilteredOperations:', transformedFilteredOperations);
 
    const sortedOperations = _.orderBy(
       transformedFilteredOperations,
@@ -113,7 +113,7 @@ const Operations = () => {
 
    const operationsCrop = paginate(sortedOperations, currentPage, PAGING_SIZE);
 
-   console.log('operationsCrop:', operationsCrop);
+   // console.log('operationsCrop:', operationsCrop);
 
    /*
    const clearFilter = () => {
@@ -121,105 +121,96 @@ const Operations = () => {
    };
 */
 
+   function handleNewIncome() {
+      dispatch(
+         setModalOn({
+            type: 'operation',
+            data: {
+               type: 'income',
+               title: 'Новый доход',
+               componentId: ''
+            }
+         })
+      );
+   }
+
+   function handleNewExpense() {
+      dispatch(
+         setModalOn({
+            type: 'operation',
+            data: {
+               type: 'expense',
+               title: 'Новый расход',
+               componentId: ''
+            }
+         })
+      );
+   }
+
    return (
       <>
-         <div>
-            <div className="overflow-hidden bg-white shadow sm:rounded-lg">
-               <div className="pt-4 pb-4 py-5 sm:px-6 ">
-                  <div className="flex justify-between ">
-                     <div className="flex flex-col justify-between">
-                        <h3 className="text-lg font-medium leading-6 text-gray-900">
-                           Операции
-                        </h3>
-                        <div className="flex">
-                           <GroupList
-                              selectedItem={selectedType}
-                              items={operationsTypes}
-                              onItemSelect={handleTypeSelect}
-                           />
-                        </div>
+         <div className="overflow-hidden bg-white shadow sm:rounded-lg">
+            <div className="pt-4 pb-4 py-5 sm:px-6 ">
+               <div className="flex justify-between ">
+                  <div className="flex flex-col justify-between">
+                     <h3 className="text-lg font-medium leading-6 text-gray-900">
+                        Операции
+                     </h3>
+                     <div className="flex">
+                        <GroupList
+                           selectedItem={selectedType}
+                           items={operationsTypes}
+                           onItemSelect={handleTypeSelect}
+                        />
                      </div>
-                     <div className="rounded border border-secondary-ultralight py-1 px-2">
-                        <div className="text-center border-b text-xs mb-2">
-                           Добавить
-                        </div>
-                        <div className="inline-block">
-                           <button
-                              className="inline-flex items-center justify-center p-2 leading-6 shadow text-5xl font-medium rounded-full text-white bg-success hover:bg-success-dark focus:outline-none"
-                              type="button"
-                              onClick={() => {
-                                 dispatch(
-                                    setModalOn({
-                                       type: 'operation',
-                                       data: {
-                                          type: 'income',
-                                          title: 'Новый доход',
-                                          componentId: ''
-                                       }
-                                    })
-                                 );
-                              }}
-                              title="Add income"
-                           >
-                              <PlusIcon
-                                 className="h-8 w-8 text-white "
-                                 aria-hidden="true"
-                              />
-                           </button>
-                           <div className="text-xs text-center">доход</div>
-                        </div>
-                        <div className="inline-block ml-4">
-                           <button
-                              className="inline-flex items-center justify-center p-2 leading-6 shadow text-5xl font-medium rounded-full text-white bg-danger hover:bg-danger-dark focus:outline-none"
-                              type="button"
-                              onClick={() => {
-                                 dispatch(
-                                    setModalOn({
-                                       type: 'operation',
-                                       data: {
-                                          type: 'expense',
-                                          title: 'Новый расход',
-                                          componentId: ''
-                                       }
-                                    })
-                                 );
-                              }}
-                              title="Add expense"
-                           >
-                              <MinusIcon
-                                 className="h-8 w-8 text-white"
-                                 aria-hidden="true"
-                              />
-                           </button>
-                           <div className="text-xs text-center">расход</div>
-                        </div>
+                  </div>
+                  <div className="rounded border border-secondary-ultralight py-1 px-2">
+                     <div className="text-center border-b text-xs mb-2">
+                        Добавить
+                     </div>
+                     <div className="inline-block">
+                        <RoundButton
+                           type="button"
+                           onClick={handleNewIncome}
+                           title="Новый доход"
+                        ></RoundButton>
+                        <div className="text-xs text-center">доход</div>
+                     </div>
+                     <div className="inline-block ml-4">
+                        <RoundButton
+                           buttonType="minus"
+                           type="button"
+                           onClick={handleNewExpense}
+                           title="Новый расход"
+                        ></RoundButton>
+                        <div className="text-xs text-center">расход</div>
                      </div>
                   </div>
                </div>
-               <div className="px-6 border-t border-gray-200 divide-y divide-secondary-light">
-                  {count !== 0 ? (
-                     <OperationsTable
-                        operations={operationsCrop}
-                        selectedSort={sortBy}
-                        onSort={handleSort}
-                        // onDelete={handleDelete}
-                        // onToggleBookmark={handleToggleBookmark}
-                     />
-                  ) : (
-                     <div className="my-10">У вас еще нет ни одно операции</div>
-                  )}
-               </div>
-               {count !== 0 && (
-                  <div className="flex justify-center mb-3 pt-3 border-t border-gray-200">
-                     <Pagination
-                        itemsCount={count}
-                        pageSize={PAGING_SIZE}
-                        currentPage={currentPage}
-                        onPageChange={handlePageChange}
-                     />
-                  </div>
+            </div>
+            <div className="px-6 border-t border-gray-200 divide-y divide-secondary-light">
+               {count !== 0 ? (
+                  <OperationsTable
+                     operations={operationsCrop}
+                     selectedSort={sortBy}
+                     onSort={handleSort}
+                     // onDelete={handleDelete}
+                     // onToggleBookmark={handleToggleBookmark}
+                  />
+               ) : (
+                  <div className="my-10">У вас еще нет ни одно операции</div>
                )}
             </div>
+            {count !== 0 && (
+               <div className="flex justify-center mb-3 pt-3 border-t border-gray-200">
+                  <Pagination
+                     itemsCount={count}
+                     pageSize={PAGING_SIZE}
+                     currentPage={currentPage}
+                     onPageChange={handlePageChange}
+                  />
+               </div>
+            )}
          </div>
       </>
    );

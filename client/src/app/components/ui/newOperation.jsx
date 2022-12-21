@@ -21,7 +21,7 @@ import { getModalData, setModalOff } from '../../store/modalSlice';
 import Button from './Button';
 import transformDate from '../../utils/transformDate';
 
-const signUpSchema = Yup.object({
+const newOperationSchema = Yup.object({
    date: Yup.date().required('Required'),
    categoryId: Yup.string().required('Required'),
    accountId: Yup.string().required('Required'),
@@ -123,7 +123,7 @@ const NewOperation = () => {
 
    const formik = useFormik({
       initialValues,
-      validationSchema: signUpSchema,
+      validationSchema: newOperationSchema,
       onSubmit: handleSubmit
    });
 

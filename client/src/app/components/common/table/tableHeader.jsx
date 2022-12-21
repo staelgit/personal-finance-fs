@@ -27,7 +27,7 @@ const TableHeader = ({ onSort, selectedSort, columns }) => {
    };
 
    return (
-      <thead>
+      <thead className="border-b border-secondary-light">
          <tr className="py-3">
             {Object.keys(columns).map((column) => (
                <th
