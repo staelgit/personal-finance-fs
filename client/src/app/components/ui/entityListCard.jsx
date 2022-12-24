@@ -47,7 +47,9 @@ const EntityListCard = ({
                                  type="button"
                                  className="group-hover:bg-primary bg-primary-light"
                               />
-                              <span className="ml-1 leading-3">Добавить</span>
+                              <span className="ml-2 mb-0.5 leading-3">
+                                 Добавить
+                              </span>
                            </div>
                         </div>
                      </div>

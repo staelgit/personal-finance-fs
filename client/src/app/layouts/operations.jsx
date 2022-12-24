@@ -1,8 +1,6 @@
 import React, { useEffect, useState } from 'react';
-// import operationService from '../services/operation.service';
 import { getOperations } from '../store/operationSlice';
 import { useDispatch, useSelector } from 'react-redux';
-// import { getCurrentUserId } from '../store/authSlice';
 import _ from 'lodash';
 import { paginate } from '../utils/paginate';
 import GroupList from '../components/common/groupList';
@@ -13,14 +11,13 @@ import { getCategories } from '../store/categorySlice';
 import { getAccounts } from '../store/accounSlice';
 import RoundButton from '../components/ui/roundButton';
 
-const PAGING_SIZE = 6;
+const PAGING_SIZE = 11;
 
 const Operations = () => {
    const dispatch = useDispatch();
    const operations = useSelector(getOperations());
    const categories = useSelector(getCategories());
    const accounts = useSelector(getAccounts());
-   // const currentUserId = useSelector(getCurrentUserId());
    const [currentPage, setCurrentPage] = useState(1);
    const operationsTypes = [
       { _id: 1, name: 'все', key: 'all' },
@@ -147,6 +144,7 @@ const Operations = () => {
       );
    }
 
+   console.log('count:', count);
    return (
       <>
          <div className="overflow-hidden bg-white shadow sm:rounded-lg">
@@ -188,7 +186,7 @@ const Operations = () => {
                   </div>
                </div>
             </div>
-            <div className="px-6 border-t border-gray-200 divide-y divide-secondary-light">
+            <div className="px-6 pb-3 border-t border-gray-200 divide-y divide-secondary-light">
                {count !== 0 ? (
                   <OperationsTable
                      operations={operationsCrop}
@@ -201,7 +199,8 @@ const Operations = () => {
                   <div className="my-10">У вас еще нет ни одно операции</div>
                )}
             </div>
-            {count !== 0 && (
+
+            {count > PAGING_SIZE && (
                <div className="flex justify-center mb-3 pt-3 border-t border-gray-200">
                   <Pagination
                      itemsCount={count}

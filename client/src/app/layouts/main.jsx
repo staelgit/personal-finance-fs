@@ -7,6 +7,7 @@ import { useHistory } from 'react-router-dom';
 import Card from '../components/common/Card';
 import Accounts from '../components/ui/accounts';
 import Categories from '../components/ui/categories';
+import AnalyticsLayout from '../components/ui/AnalyticsLayout';
 
 const Main = () => {
    const isLoggedIn = useSelector(getIsLoggedIn());
@@ -36,8 +37,9 @@ const Main = () => {
                   </div>
                </div>
 
-               <Card className="mt-3">
-                  <Card.Title>2.аналитика</Card.Title>
+               <Card className="mt-3 px-4 py-4">
+                  <Card.Title>Аналитика</Card.Title>
+                  <AnalyticsLayout />
                </Card>
             </>
          ) : (
@@ -72,25 +74,6 @@ const Main = () => {
                               </Button>
                            </div>
                         </div>
-                        {/* <div className="hidden sm:mt-8 sm:flex sm:justify-center">
-                           <div className="relative overflow-hidden rounded-full py-1.5 px-4 text-sm leading-6 ring-1 ring-gray-900/10 hover:ring-gray-900/20">
-                              <span className="text-secondary">
-                                 Тут можно написать какой то текст и куда то
-                                 отослать или удали потом.{' '}
-                                 <a
-                                    href="#"
-                                    className="font-semibold text-indigo-600"
-                                 >
-                                    <span
-                                       className="absolute inset-0"
-                                       aria-hidden="true"
-                                    />
-                                    Читать далее{' '}
-                                    <span aria-hidden="true">&rarr;</span>
-                                 </a>
-                              </span>
-                           </div>
-                        </div> */}
                      </div>
                   </div>
                </div>

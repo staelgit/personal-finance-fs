@@ -9,10 +9,12 @@ import { getModalStatus } from '../../store/modalSlice';
 const Layout = ({ children }) => {
    const isModal = useSelector(getModalStatus());
 
-   // const isModal = true;
-   console.log('isModal:', isModal);
    return (
-      <div className="relative bg-white text-secondary-dark">
+      <div
+         className={`relative bg-white text-secondary-dark ${
+            isModal ? 'h-screen overflow-hidden' : ''
+         }`}
+      >
          {isModal && <Modal />}
          <div className="md:container min-h-screen px-2 m-auto flex  flex-col justify-between divide-y divide-secondary-light ">
             <div className="h-10">

@@ -12,7 +12,7 @@ const Modal = () => {
    // const modalType = 'operation';
    console.log('modalType:', modalType);
    return (
-      <div className="modal absolute flex justify-center items-center bg-black/50 w-full h-full z-20 transition-all duration-500">
+      <div className="modal absolute flex justify-center items-center bg-black/50 w-full h-screen z-20 transition-all duration-500">
          <div>{modalType === 'operation' && <NewOperation />}</div>
          <div>{modalType === 'account' && <NewAccount />}</div>
          <div>{modalType === 'category' && <NewCategory />}</div>

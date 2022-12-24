@@ -22,13 +22,13 @@ import Button from './Button';
 import transformDate from '../../utils/transformDate';
 
 const newOperationSchema = Yup.object({
-   date: Yup.date().required('Required'),
-   categoryId: Yup.string().required('Required'),
-   accountId: Yup.string().required('Required'),
+   date: Yup.date().required('Не может быть пустым'),
+   categoryId: Yup.string().required('Не может быть пустым'),
+   accountId: Yup.string().required('Не может быть пустым'),
    amount: Yup.number()
-      .typeError('There must be a number')
-      .positive('Must be a positive')
-      .required('Required'),
+      .typeError('Должно быть числом')
+      .positive('Должно быть положительным')
+      .required('Не может быть пустым'),
    comment: Yup.string()
 });
 

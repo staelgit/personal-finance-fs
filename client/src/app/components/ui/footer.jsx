@@ -4,7 +4,7 @@ const Footer = () => {
    return (
       <div className="flex justify-center items-center text-center text-sm h-full">
          <a
-            href="https://github.com/staelgit/personal-finance"
+            href="https://github.com/staelgit/personal-finance-fs"
             target="_blank"
             rel="noreferrer"
          >
