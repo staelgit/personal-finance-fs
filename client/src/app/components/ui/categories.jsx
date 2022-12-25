@@ -13,15 +13,12 @@ const Categories = ({ type }) => {
    const dispatch = useDispatch();
    const categories = useSelector(getCategories());
 
-   // console.log('categories from redux:', categories);
-
    const [sortBy, setSortBy] = useState({ path: 'title', order: 'asc' });
 
    let title;
    let titleNewCategory;
    let titleUpdateCategory;
    const filteredByType = categories.filter((c) => c.type === type);
-   // console.log('filteredByType:', filteredByType);
 
    if (type === 'income') {
       title = 'Доходы';

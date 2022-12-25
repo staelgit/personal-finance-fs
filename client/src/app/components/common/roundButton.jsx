@@ -12,8 +12,8 @@ const RoundButton = ({
       size === 'big' ? 'text-5xl p-2' : 'text-xl p-1'
    } ${
       buttonType === 'plus'
-         ? 'bg-success-light hover:bg-success '
-         : 'bg-danger-light hover:bg-danger'
+         ? 'bg-success hover:bg-success-dark '
+         : 'bg-danger hover:bg-danger-dark'
    } ${customClasses}`;
    const iconClasses = size === 'big' ? 'h-8 w-8' : 'h-4 w-4';
    return (

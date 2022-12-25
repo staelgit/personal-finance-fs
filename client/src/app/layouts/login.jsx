@@ -1,11 +1,9 @@
 import React, { useState } from 'react';
-// import LoginForm from '../components/ui/loginForm';
-// import RegisterForm from '../components/ui/registerForm';
 import { useParams } from 'react-router-dom';
 import Card from '../components/common/Card';
 import LoginPage from '../components/ui/LoginPage';
 import SignupPage from '../components/ui/SignupPage';
-import StyledNavLink from '../components/ui/StyledNavLink';
+import StyledNavLink from '../components/common/StyledNavLink';
 
 const Login = () => {
    const { type } = useParams;
@@ -20,9 +18,7 @@ const Login = () => {
    return (
       <>
          {formType === 'register' ? (
-            <Card className="m-auto mt-3 w-96">
-               {/* <Card.Title>Register</Card.Title> */}
-               {/* <RegisterForm /> */}
+            <Card className="m-auto mt-40 w-96">
                <SignupPage />
                <div className="mt-3">
                   Уже есть аккаунт?{' '}
@@ -37,9 +33,7 @@ const Login = () => {
                </div>
             </Card>
          ) : (
-            <Card className="m-auto mt-8 w-96">
-               {/* <Card.Title>Login</Card.Title> */}
-               {/* <LoginForm /> */}
+            <Card className="m-auto mt-40 w-96">
                <LoginPage />
                <div className="mt-3">
                   Еще нет аккаунта?{' '}

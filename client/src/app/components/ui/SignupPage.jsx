@@ -8,14 +8,13 @@ import { getAuthErrors, signUp } from '../../store/authSlice';
 import { clearMessage, setMessage } from '../../store/messageSlice';
 // Components
 import SpinLoading from '../common/SpinLoader';
-import Button from '../common/Button';
+import FormsButton from '../common/FormsButton';
 import TextField from '../common/inputs/TextInput';
 import Card from '../common/Card';
-// import { useAuth } from '../../hooks/useAuth';
+
 // Icons
 import { UserIcon, KeyIcon, EnvelopeIcon } from '@heroicons/react/24/outline';
 import Alert from '../common/Alert';
-// import history from '../../utils/history';
 
 const signUpSchema = Yup.object({
    name: Yup.string()
@@ -35,11 +34,9 @@ const initialValues = {
 
 const SignUpPage = () => {
    const [loading, setLoading] = useState(false);
-   // const [successful, setSuccessful] = useState(false);
-   // const { message } = useSelector((state) => state.message);
+
    const message = useSelector(getAuthErrors());
    const dispatch = useDispatch();
-   // const { signUp } = useAuth();
 
    useEffect(() => {
       dispatch(clearMessage());
@@ -47,14 +44,10 @@ const SignUpPage = () => {
 
    const handleSubmit = async (formValues) => {
       setLoading(true);
-      // setSuccessful(false);
       try {
          await dispatch(signUp(formValues));
-         // setSuccessful(true);
-         // history.push('/');
       } catch (error) {
          dispatch(setMessage(error.message));
-         // setSuccessful(false);
       } finally {
          setLoading(false);
       }
@@ -70,7 +63,6 @@ const SignUpPage = () => {
       <>
          <Card.Title>Зарегистрироваться</Card.Title>
          <FormikProvider value={formik}>
-            {/* {!successful && ( */}
             <form
                className="space-y-3 min-w-[200px] w-full"
                onSubmit={formik.handleSubmit}
@@ -85,16 +77,13 @@ const SignUpPage = () => {
                   icon={KeyIcon}
                />
                <div className="pt-2">
-                  <Button disabled={loading}>
+                  <FormsButton disabled={loading}>
                      {loading && <SpinLoading />} Sign Up
-                  </Button>
+                  </FormsButton>
                </div>
             </form>
-            {/* )} */}
-            {message && (
-               // <Alert type={successful ? 'success' : 'danger'}>{message}</Alert>
-               <Alert type={'danger'}>{message}</Alert>
-            )}
+
+            {message && <Alert type={'danger'}>{message}</Alert>}
          </FormikProvider>
       </>
    );

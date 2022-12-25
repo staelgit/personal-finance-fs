@@ -1,14 +1,12 @@
 import { createAction, createSlice } from '@reduxjs/toolkit';
 import accountService from '../services/account.service';
-// import isOutdated from '../utils/isOutdated';
 
 const accountsSlice = createSlice({
    name: 'accounts',
    initialState: {
       entities: null,
       isLoading: false,
-      error: null /*,
-      lastFetch: null */
+      error: null
    },
    reducers: {
       requested: (state) => {
@@ -16,7 +14,6 @@ const accountsSlice = createSlice({
       },
       received: (state, action) => {
          state.entities = action.payload;
-         // state.lastFetch = Date.now();
          state.isLoading = false;
       },
       requestFiled: (state, action) => {
@@ -53,10 +50,7 @@ const addAccountRequested = createAction('accounts/addAccountRequested');
 const removeAccountRequested = createAction('accounts/removeAccountRequested');
 const updateAccountRequested = createAction('accounts/updateAccountRequested');
 
-export const loadAccountsList = () => async (dispatch /*, getState */) => {
-   console.log('dispatch loadAccountsList');
-   // const { lastFetch } = getState().accounts;
-   // if (isOutdated(lastFetch)) {
+export const loadAccountsList = () => async (dispatch) => {
    dispatch(requested());
    try {
       const { content } = await accountService.get();

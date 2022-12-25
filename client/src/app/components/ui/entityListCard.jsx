@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { Disclosure } from '@headlessui/react';
 import { ChevronUpIcon } from '@heroicons/react/20/solid';
-import RoundButton from './roundButton';
+import RoundButton from '../common/roundButton';
 
 const EntityListCard = ({
    children,
@@ -32,21 +32,17 @@ const EntityListCard = ({
                      </div>
                   </Disclosure.Button>
                   <Disclosure.Panel as="div">
-                     <div className=" max-h-96 overflow-y-auto px-4 py-2 border-y border-secondary-light ">
+                     <div className=" max-h-96 overflow-y-auto px-4 py-2 border-y border-secondary-light transition-all">
                         {children}
                      </div>
                      <div className="px-4 py-3 flex justify-center">
-                        <div className="group ">
+                        <div>
                            <div
                               role="button"
                               onClick={onAdd}
-                              className="inline-flex items-center rounded-full group-hover:ring-1 ring-primary pl-1 pr-2 py-1"
+                              className="inline-flex items-center rounded-full hover:ring-1 ring-primary pl-1 pr-2 py-1"
                            >
-                              <RoundButton
-                                 size="small"
-                                 type="button"
-                                 className="group-hover:bg-primary bg-primary-light"
-                              />
+                              <RoundButton size="small" type="button" />
                               <span className="ml-2 mb-0.5 leading-3">
                                  Добавить
                               </span>

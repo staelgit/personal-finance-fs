@@ -1,7 +1,0 @@
-[
-  {"userId": "5tEZi7fnscO19fbprmlMhKMwM6A3", "_id": 1, "title": "Кошелек", "balance": 1000 },
-  {"userId": "5tEZi7fnscO19fbprmlMhKMwM6A3", "_id": 2, "title": "Зарплатная карта", "balance": 2000 },
-  {"userId": "5tEZi7fnscO19fbprmlMhKMwM6A3", "_id": 3, "title": "Вклад в банке", "balance": 3000 },
-  {"userId": "5tEZi7fnscO19fbprmlMhKMwM6A3", "_id": 4, "title": "Наличные дома", "balance": 3000 },
-  {"userId": "5tEZi7fnscO19fbprmlMhKMwM6A3", "_id": 5, "title": "Банковская ячейка", "balance": 3000 }
-]

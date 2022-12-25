@@ -1,12 +1,21 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-const Button = ({ label, children }) => {
+const Button = ({
+   label,
+   children,
+   buttonType = 'success',
+   className: customClasses = '',
+   ...rest
+}) => {
+   const classes = `flex justify-center items-center py-2.5 px-5 rounded text-white ${
+      buttonType === 'success'
+         ? 'bg-primary hover:bg-primary-dark'
+         : 'bg-secondary hover:bg-secondary-dark'
+   } ${customClasses}`;
+
    return (
-      <button
-         type="submit"
-         className="inline-flex w-full items-center justify-center py-3 px-5 leading-6 shadow text-sm font-medium rounded-md text-white bg-primary hover:bg-primary-dark focus:outline-none my-2"
-      >
+      <button className={classes} {...rest}>
          {label || children || 'button'}
       </button>
    );
@@ -17,7 +26,9 @@ Button.propTypes = {
    children: PropTypes.oneOfType([
       PropTypes.node,
       PropTypes.arrayOf(PropTypes.node)
-   ])
+   ]),
+   buttonType: PropTypes.string,
+   className: PropTypes.string
 };
 
 export default Button;

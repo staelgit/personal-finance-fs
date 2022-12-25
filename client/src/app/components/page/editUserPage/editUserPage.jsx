@@ -11,7 +11,7 @@ import {
 } from '../../../store/authSlice';
 import Card from '../../common/Card';
 import { EnvelopeIcon, UserIcon } from '@heroicons/react/24/outline';
-import Button from '../../common/Button';
+import FormsButton from '../../common/FormsButton';
 import SpinLoading from '../../common/SpinLoader';
 import Alert from '../../common/Alert';
 import { FormikProvider, useFormik } from 'formik';
@@ -58,7 +58,7 @@ const EditUserPage = () => {
 
    return !loading ? (
       <>
-         <Card className="m-auto mt-8 w-96 ">
+         <Card className="m-auto mt-40 w-96 ">
             <Card.Title>Редактируем пользователя</Card.Title>
             <FormikProvider value={formik}>
                {/* {!successful && ( */}
@@ -69,9 +69,9 @@ const EditUserPage = () => {
                   <TextField label="Имя" name="name" icon={UserIcon} />
                   <TextField label="Почта" name="email" icon={EnvelopeIcon} />
                   <div className="pt-2">
-                     <Button disabled={loading}>
+                     <FormsButton disabled={loading}>
                         {loading && <SpinLoading />} Обновить
-                     </Button>
+                     </FormsButton>
                   </div>
                </form>
                {/* )} */}

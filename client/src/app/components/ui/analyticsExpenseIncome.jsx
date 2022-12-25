@@ -1,29 +1,35 @@
-import React, { /* useEffect, */ useState } from 'react';
+import React, { useState } from 'react';
 import PropTypes from 'prop-types';
-import { getOperations } from '../../store/operationSlice';
 import { useSelector } from 'react-redux';
+import { getOperations } from '../../store/operationSlice';
+import { getCategories } from '../../store/categorySlice';
 import _ from 'lodash';
 import { paginate } from '../../utils/paginate';
 import Pagination from '../../components/common/pagination';
-import { getCategories } from '../../store/categorySlice';
-// import { getAccounts } from '../../store/accounSlice';
 import AnalyticsExpenseIncomeTable from './analyticsExpenseIncomeTable';
 import transformDate from '../../utils/transformDate';
-// import Chart from './Chart';
-import BarChart from './BarChart';
-import RoundChart from './RoundChart';
+import BarChart from '../common/BarChart';
+import RoundChart from '../common/RoundChart';
+import DateIntervalPicker from '../common/dateIntervalPicker';
+import { getCurrentUserId } from '../../store/authSlice';
+import configFile from '../../config.json';
 
 const PAGING_SIZE = 10;
 
 const AnalyticsExpenseIncome = ({ type }) => {
    const operations = useSelector(getOperations());
    const categories = useSelector(getCategories());
-   const [currentPage, setCurrentPage] = useState(1);
+   const currentUserId = useSelector(getCurrentUserId());
 
+   const [currentPage, setCurrentPage] = useState(1);
    const [sortBy, setSortBy] = useState({ path: 'sum', order: 'desc' });
    const [isEmptySumVisible, toggleEmptySumVisible] = useState(true);
    const [isInteger, toggleInteger] = useState(true);
-   const initialStartDate = generateDataString('startCurrentMonth');
+
+   const initialStartDate =
+      currentUserId === configFile.demoUserId
+         ? '2022-12-01'
+         : generateDataString('startCurrentMonth');
    const [dateIntervalFrom, setDateIntervalFrom] = useState(initialStartDate);
    const [dateIntervalTo, setDateIntervalTo] = useState('');
 
@@ -36,14 +42,8 @@ const AnalyticsExpenseIncome = ({ type }) => {
       setSortBy(item);
    };
 
-   // const type = 'expense';
-   // const type = 'income';
-
    function filterCategories() {
-      // обрезать операции по выбранным категориям
-
       // обрезать операции по интервалу дат
-      // console.log('operations:', operations);
       let filteredOperations = operations;
 
       if (dateIntervalFrom) {
@@ -65,7 +65,6 @@ const AnalyticsExpenseIncome = ({ type }) => {
          });
       }
 
-      console.log('filteredOperations:', filteredOperations);
       // посчитать суммы по категориям
       let filtered = categories
          .filter((c) => c.type === type)
@@ -90,7 +89,6 @@ const AnalyticsExpenseIncome = ({ type }) => {
       total = filtered.reduce((acc, item) => {
          return (acc += item.sum);
       }, 0);
-      // console.log('total:', total);
 
       // добавить проценты в передаваемое
       filtered = filtered.map((c) => {
@@ -114,11 +112,9 @@ const AnalyticsExpenseIncome = ({ type }) => {
    const zeroClearedCategories = isEmptySumVisible
       ? sortedCategories.filter((c) => c.sum > 0)
       : sortedCategories;
-   console.log('zeroCleared:', zeroClearedCategories);
 
    const count = filteredCategories.length;
    const zeroClearedCount = zeroClearedCategories.length;
-   console.log('zeroClearedCount:', zeroClearedCount);
 
    const correctPage = Math.ceil(count / PAGING_SIZE);
    if (currentPage > correctPage) {
@@ -127,8 +123,7 @@ const AnalyticsExpenseIncome = ({ type }) => {
 
    const categoriesCrop = paginate(sortedCategories, currentPage, PAGING_SIZE);
 
-   console.log('count:', count);
-   const handleChangeDateFrom = ({ target }) => {
+   const handleChangeDate = ({ target }) => {
       const name = target.name;
       const value = target.value;
       if (name === 'from') {
@@ -139,7 +134,6 @@ const AnalyticsExpenseIncome = ({ type }) => {
    };
 
    const chartData = generateChartData();
-   console.log('chartData:', chartData);
 
    function generateChartData() {
       const newData = zeroClearedCategories.map((c) => {
@@ -204,28 +198,12 @@ const AnalyticsExpenseIncome = ({ type }) => {
                </div>
                <div className="p-2 w-[28rem]">
                   <div className="flex flex-col items-center">
-                     <div>
-                        <input
-                           type="date"
-                           name="from"
-                           id="from"
-                           pattern="[0-9]{4}-[0-9]{2}-[0-9]{2}"
-                           className="m-1 w-40 px-2 py-1 rounded text-sm dark:bg-gray-700  focus:outline-none bg-white ring-1 ring-slate-900/10 hover:ring-slate-300 focus:outline-none focus:ring-2 focus:ring-sky-500 shadow-sm rounded-lg text-slate-400  "
-                           onChange={handleChangeDateFrom}
-                           value={dateIntervalFrom}
-                        />
+                     <DateIntervalPicker
+                        handleChangeDate={handleChangeDate}
+                        dateIntervalFrom={dateIntervalFrom}
+                        dateIntervalTo={dateIntervalTo}
+                     />
 
-                        <span>&mdash;</span>
-                        <input
-                           type="date"
-                           name="to"
-                           id="to"
-                           pattern="[0-9]{4}-[0-9]{2}-[0-9]{2}"
-                           className="m-1 w-40 px-2 py-1 rounded text-sm dark:bg-gray-700  focus:outline-none bg-white ring-1 ring-slate-900/10 hover:ring-slate-300 focus:outline-none focus:ring-2 focus:ring-sky-500 shadow-sm rounded-lg text-slate-400  "
-                           onChange={handleChangeDateFrom}
-                           value={dateIntervalTo}
-                        />
-                     </div>
                      <div>
                         <button
                            type="button"

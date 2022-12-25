@@ -32,19 +32,12 @@ const AppLoader = ({ children }) => {
    const categoriesLoadingStatus = useSelector(getCategoriesLoadingStatus());
    const operationsLoadingStatus = useSelector(getOperationsLoadingStatus());
 
-   console.log('AppLoader');
-   // console.log('isLoggedIn from AppLoader', isLoggedIn);
-
    useEffect(() => {
-      // console.log('useEffect isLoggedIn from appLoader');
-
       async function checkAndUpdateTokens() {
-         console.log('checkAndUpdateTokens:');
          const expiresDate = localStorageService.getTokenExpiresDate();
          const refreshToken = localStorageService.getRefreshToken();
          const isExpired = refreshToken && expiresDate < Date.now();
          if (isExpired) {
-            console.log('isExpired from checkAndUpdateTokens():', isExpired);
             const data = await authService.refresh();
             localStorageService.setTokens(data);
          }
@@ -52,8 +45,6 @@ const AppLoader = ({ children }) => {
 
       checkAndUpdateTokens().then(() => {
          const result = isLoggedIn && !currentUser;
-         console.log('result', result);
-
          if (result) {
             dispatch(loadCurrentUserData());
             dispatch(loadAccountsList());
@@ -70,7 +61,6 @@ const AppLoader = ({ children }) => {
          accountsLoadingStatus ||
          categoriesLoadingStatus ||
          operationsLoadingStatus);
-   // console.log('isLoaderVisible:', isLoaderVisible);
    if (isLoaderVisible) return <Loader />;
 
    return children;

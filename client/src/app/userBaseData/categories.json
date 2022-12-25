@@ -8,6 +8,7 @@
   {"type": "expense", "title": "Транспорт" },
   {"type": "expense", "title": "Лекарства" },
   {"type": "expense", "title": "Бытовая техника" },
+  {"type": "expense", "title": "Алкоголь" },
   {"type": "income", "title": "Зарплата"},
   {"type": "income", "title": "Проценты от вклада в банке"},
   {"type": "income", "title": "Деньги полученные в подарок" }

@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import Card from '../common/Card';
 import { getModalData, setModalOff } from '../../store/modalSlice';
-import Button from './Button';
+import Button from '../common/Button';
 import { useDispatch, useSelector } from 'react-redux';
 import { getOperations, removeOperation } from '../../store/operationSlice';
 import { setMessage } from '../../store/messageSlice';
@@ -12,18 +12,13 @@ import { removeCategory } from '../../store/categorySlice';
 const Delete = () => {
    const dispatch = useDispatch();
    const { id, type } = useSelector(getModalData());
-   console.log('id', id);
-   console.log('type', type);
+
    const [loading, setLoading] = useState(false);
    const operations = useSelector(getOperations());
 
    const isPossible = checkPossibilityDeletion(id);
 
-   console.log('isPossible:', isPossible);
-
    const handleDelete = async () => {
-      console.log('handleDelete');
-
       setLoading(true);
 
       try {

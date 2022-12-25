@@ -1,9 +1,7 @@
 import httpService from './http.service';
-// import { nanoid } from 'nanoid';
 
 const accountEndPoint = 'account/';
 
-// Сделать получение по юзерайди
 const accountService = {
    get: async () => {
       const { data } = await httpService.get(accountEndPoint);

@@ -18,17 +18,12 @@ router.post('/signUp', [
                error: {
                   message: 'INVALID_DATA',
                   code: 400
-                  // errors: errors.array()
                }
             });
          }
          const { email, password } = req.body;
 
-         console.log('email:', email);
-         console.log('password:', password);
-
          const existingUser = await User.findOne({ email });
-         console.log('existingUser:', existingUser);
 
          if (existingUser) {
             return res.status(400).json({
@@ -41,8 +36,6 @@ router.post('/signUp', [
 
          const hashedPassword = await bcrypt.hash(password, 12);
 
-         console.log('...req.body:', req.body);
-
          const newUser = await User.create({
             ...req.body,
             password: hashedPassword,
@@ -52,8 +45,6 @@ router.post('/signUp', [
                .toString(36)
                .substring(7)}.svg`
          });
-
-         console.log('newUser:', newUser);
 
          const tokens = tokenService.generate({ _id: newUser._id });
          await tokenService.save(newUser._id, tokens.refreshToken);
@@ -131,13 +122,12 @@ function isTokenInvalid(data, dbToken) {
 }
 
 router.post('/token', async (req, res) => {
-   console.log('req.body:', req.body);
    try {
       const { refresh_token: refreshToken } = req.body;
       const data = tokenService.validateRefresh(refreshToken);
-      console.log('data:', data);
+
       const dbToken = await tokenService.findToken(refreshToken);
-      console.log('dbToken:', dbToken);
+
       if (isTokenInvalid(data, dbToken)) {
          return res.status(401).json({ message: 'Unauthorized' });
       }
@@ -145,7 +135,6 @@ router.post('/token', async (req, res) => {
       const tokens = await tokenService.generate({
          _id: data._id
       });
-      console.log('tokens:', tokens);
 
       await tokenService.save(data._id, tokens.refreshToken);
 

@@ -15,7 +15,7 @@ import {
 } from '../../store/categorySlice';
 
 import { getModalData, setModalOff } from '../../store/modalSlice';
-import Button from './Button';
+import Button from '../common/Button';
 
 const newCategorySchema = Yup.object({
    title: Yup.string()
@@ -26,9 +26,7 @@ const newCategorySchema = Yup.object({
 const NewCategory = () => {
    const data = useSelector(getModalData());
    const { type, subtype, title, componentId } = data;
-   console.log('data:', data);
 
-   // const history = useHistory();
    const [loading, setLoading] = useState(false);
    const message = useSelector(getAuthErrors());
    const dispatch = useDispatch();
@@ -51,30 +49,20 @@ const NewCategory = () => {
          title: ''
       };
    }
-   // console.log('initialValues:', initialValues);
-   // console.log('categories:', categories);
-   // console.log('categories:', categories);
 
    useEffect(() => {
       dispatch(clearMessage());
    }, [dispatch]);
 
    const handleSubmit = async (formValues) => {
-      console.log('handleSubmit:');
-      console.log('formValues:', formValues);
-
       setLoading(true);
-      // setSuccessful(false);
       try {
          type === 'update'
             ? await dispatch(updateCategory(formValues))
             : await dispatch(createCategory(formValues, currentUserId));
          dispatch(setModalOff());
-         // setSuccessful(true);
-         // history.push('/app/operations');
       } catch (error) {
          dispatch(setMessage(error.message));
-         // setSuccessful(false);
       } finally {
          setLoading(false);
       }
@@ -91,17 +79,11 @@ const NewCategory = () => {
          <Card className="w-[32rem] pt-5 pb-6 bg-white">
             <Card.Title>{title}</Card.Title>
             <FormikProvider value={formik}>
-               {/* {!successful && ( */}
                <form
                   className="space-y-3 min-w-[200px] w-full mt-6"
                   onSubmit={formik.handleSubmit}
                >
-                  <TextField
-                     label="Наименование"
-                     name="title"
-                     // type="date"
-                     // customClasses={'h-9'}
-                  />
+                  <TextField label="Наименование" name="title" />
 
                   <div className="pt-6 flex justify-between">
                      <Button
@@ -121,11 +103,8 @@ const NewCategory = () => {
                      </Button>
                   </div>
                </form>
-               {/* )} */}
-               {message && (
-                  // <Alert type={successful ? 'success' : 'danger'}>{message}</Alert>
-                  <Alert type={'danger'}>{message}</Alert>
-               )}
+
+               {message && <Alert type={'danger'}>{message}</Alert>}
             </FormikProvider>
          </Card>
       </>

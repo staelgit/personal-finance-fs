@@ -15,7 +15,7 @@ import {
 } from '../../store/accounSlice';
 
 import { getModalData, setModalOff } from '../../store/modalSlice';
-import Button from './Button';
+import Button from '../common/Button';
 
 const newAccountSchema = Yup.object({
    title: Yup.string()
@@ -26,9 +26,7 @@ const newAccountSchema = Yup.object({
 const NewAccount = () => {
    const data = useSelector(getModalData());
    const { type, title, componentId } = data;
-   console.log('data:', data);
 
-   // const history = useHistory();
    const [loading, setLoading] = useState(false);
    const message = useSelector(getAuthErrors());
    const dispatch = useDispatch();
@@ -50,30 +48,21 @@ const NewAccount = () => {
          title: ''
       };
    }
-   // console.log('initialValues:', initialValues);
-   // console.log('categories:', categories);
-   // console.log('accounts:', accounts);
 
    useEffect(() => {
       dispatch(clearMessage());
    }, [dispatch]);
 
    const handleSubmit = async (formValues) => {
-      console.log('handleSubmit:');
-      console.log('formValues:', formValues);
-
       setLoading(true);
-      // setSuccessful(false);
+
       try {
          type === 'update'
             ? await dispatch(updateAccount(formValues))
             : await dispatch(createAccount(formValues, currentUserId));
          dispatch(setModalOff());
-         // setSuccessful(true);
-         // history.push('/app/operations');
       } catch (error) {
          dispatch(setMessage(error.message));
-         // setSuccessful(false);
       } finally {
          setLoading(false);
       }
@@ -90,17 +79,11 @@ const NewAccount = () => {
          <Card className="w-[32rem] pt-5 pb-6 bg-white">
             <Card.Title>{title}</Card.Title>
             <FormikProvider value={formik}>
-               {/* {!successful && ( */}
                <form
                   className="space-y-3 min-w-[200px] w-full mt-6"
                   onSubmit={formik.handleSubmit}
                >
-                  <TextField
-                     label="Наименование"
-                     name="title"
-                     // type="date"
-                     // customClasses={'h-9'}
-                  />
+                  <TextField label="Наименование" name="title" />
 
                   <div className="pt-6 flex justify-between">
                      <Button
@@ -120,11 +103,8 @@ const NewAccount = () => {
                      </Button>
                   </div>
                </form>
-               {/* )} */}
-               {message && (
-                  // <Alert type={successful ? 'success' : 'danger'}>{message}</Alert>
-                  <Alert type={'danger'}>{message}</Alert>
-               )}
+
+               {message && <Alert type={'danger'}>{message}</Alert>}
             </FormikProvider>
          </Card>
       </>

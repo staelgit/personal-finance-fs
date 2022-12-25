@@ -9,7 +9,7 @@ import OperationsTable from '../components/ui/operationsTable';
 import Pagination from '../components/common/pagination';
 import { getCategories } from '../store/categorySlice';
 import { getAccounts } from '../store/accounSlice';
-import RoundButton from '../components/ui/roundButton';
+import RoundButton from '../components/common/roundButton';
 
 const PAGING_SIZE = 11;
 
@@ -27,7 +27,6 @@ const Operations = () => {
    const [selectedType, setSelectedType] = useState(operationsTypes[0]);
    const [sortBy, setSortBy] = useState({ path: 'date', order: 'desc' });
    const [searchBy, setSearchBy] = useState('');
-   // console.log('operations from redux:', operations);
 
    useEffect(() => {
       setCurrentPage(1);
@@ -35,12 +34,6 @@ const Operations = () => {
          setSearchBy('');
       }
    }, [selectedType]);
-
-   /*   useEffect(() => {
-      if (searchBy && selectedType) {
-         setSelectedType('all');
-      }
-   }, [searchBy]); */
 
    const handleTypeSelect = (item) => {
       setSelectedType(item);
@@ -51,12 +44,6 @@ const Operations = () => {
    const handleSort = (item) => {
       setSortBy(item);
    };
-
-   /*
-   const handleSearch = (searchQuery) => {
-      setSearchBy(searchQuery);
-   };
-*/
 
    function filterOperations(data) {
       const filteredOperations =
@@ -78,7 +65,6 @@ const Operations = () => {
 
    const transformedFilteredOperations =
       transformOperationsForSort(filteredOperations);
-   // console.log('transformedFilteredOperations:', transformedFilteredOperations);
 
    const sortedOperations = _.orderBy(
       transformedFilteredOperations,
@@ -110,14 +96,6 @@ const Operations = () => {
 
    const operationsCrop = paginate(sortedOperations, currentPage, PAGING_SIZE);
 
-   // console.log('operationsCrop:', operationsCrop);
-
-   /*
-   const clearFilter = () => {
-      setSelectedType({ _id: 1, name: 'all' });
-   };
-*/
-
    function handleNewIncome() {
       dispatch(
          setModalOn({
@@ -144,7 +122,6 @@ const Operations = () => {
       );
    }
 
-   console.log('count:', count);
    return (
       <>
          <div className="overflow-hidden bg-white shadow sm:rounded-lg">
@@ -192,11 +169,9 @@ const Operations = () => {
                      operations={operationsCrop}
                      selectedSort={sortBy}
                      onSort={handleSort}
-                     // onDelete={handleDelete}
-                     // onToggleBookmark={handleToggleBookmark}
                   />
                ) : (
-                  <div className="my-10">У вас еще нет ни одно операции</div>
+                  <div className="my-10">У вас еще нет ни одной операции</div>
                )}
             </div>
 

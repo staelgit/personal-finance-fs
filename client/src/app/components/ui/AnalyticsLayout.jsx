@@ -2,7 +2,6 @@ import React, { useState } from 'react';
 import GroupList from '../common/groupList';
 // import AnalyticsAccounts from './analyticsAccounts';
 import AnalyticsExpenseIncome from './analyticsExpenseIncome';
-// import AnalyticsIncome from './analyticsIncome';
 
 const AnalyticsLayout = () => {
    const sectionsTypes = [
@@ -11,8 +10,6 @@ const AnalyticsLayout = () => {
       { _id: 3, name: 'Доходы', key: 'income' }
    ];
    const [selectedType, setSelectedType] = useState(sectionsTypes[0]);
-
-   // console.log('selectedType:', selectedType);
 
    const handleTypeSelect = (item) => {
       setSelectedType(item);

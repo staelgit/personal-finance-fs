@@ -69,12 +69,19 @@ http.interceptors.response.use(
       return res;
    },
    function (error) {
+      if (
+         error.response.status === 401 &&
+         error.response.data.message === 'noDemoUserDataEdit'
+      ) {
+         toast.error(
+            'Запрещено редактирование данных демонстрационного пользователя'
+         );
+      }
       const expectedErrors =
          error.response &&
          error.response.status >= 400 &&
          error.response.status < 500;
       if (!expectedErrors) {
-         console.log(error);
          toast.error('Something was wrong. Try it later');
       }
       return Promise.reject(error);

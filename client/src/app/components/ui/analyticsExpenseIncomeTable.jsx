@@ -24,7 +24,6 @@ const AnalyticsExpenseIncomeTable = ({ categories, onSort, selectedSort }) => {
          )
       },
       percent: {
-         // path: 'percent',
          name: '%',
          component: (category) => (
             <div className={'py-2 px-1 leading-4 text-center'}>

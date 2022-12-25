@@ -1,14 +1,12 @@
 import { createAction, createSlice } from '@reduxjs/toolkit';
 import categoryService from '../services/category.service';
-// import isOutdated from '../utils/isOutdated';
 
 const categorySlice = createSlice({
    name: 'categories',
    initialState: {
       entities: null,
       isLoading: false,
-      error: null /*,
-      lastFetch: null */
+      error: null
    },
    reducers: {
       requested: (state) => {
@@ -16,7 +14,7 @@ const categorySlice = createSlice({
       },
       received: (state, action) => {
          state.entities = action.payload;
-         // state.lastFetch = Date.now();
+
          state.isLoading = false;
       },
       requestFiled: (state, action) => {
@@ -57,10 +55,7 @@ const updateCategoryRequested = createAction(
    'categories/updateCategoryRequested'
 );
 
-export const loadCategoriesList = () => async (dispatch /*, getState */) => {
-   console.log('dispatch loadCategoriesList');
-   // const { lastFetch } = getState().categories;
-   // if (isOutdated(lastFetch)) {
+export const loadCategoriesList = () => async (dispatch) => {
    dispatch(requested());
    try {
       const { content } = await categoryService.get();

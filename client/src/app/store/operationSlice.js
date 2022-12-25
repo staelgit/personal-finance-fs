@@ -1,14 +1,12 @@
 import { createAction, createSlice } from '@reduxjs/toolkit';
 import operationService from '../services/operation.service';
-// import isOutdated from '../utils/isOutdated';
 
 const operationSlice = createSlice({
    name: 'operations',
    initialState: {
       entities: null,
       isLoading: false,
-      error: null /*,
-      lastFetch: null */
+      error: null
    },
    reducers: {
       requested: (state) => {
@@ -16,7 +14,7 @@ const operationSlice = createSlice({
       },
       received: (state, action) => {
          state.entities = action.payload;
-         // state.lastFetch = Date.now();
+
          state.isLoading = false;
       },
       requestFiled: (state, action) => {
@@ -57,10 +55,7 @@ const updateOperationRequested = createAction(
    'operations/updateOperationRequested'
 );
 
-export const loadOperationsList = () => async (dispatch /*, getState */) => {
-   console.log('dispatch loadOperationsList');
-   // const { lastFetch } = getState().operations;
-   // if (isOutdated(lastFetch)) {
+export const loadOperationsList = () => async (dispatch) => {
    dispatch(requested());
    try {
       const { content } = await operationService.get();
