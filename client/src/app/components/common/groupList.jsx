@@ -15,10 +15,10 @@ const GroupList = ({
             return (
                <button
                   key={items[key][valueProperty]}
-                  className={`operations-filter rounded-lg bg-white border mx-0.5 px-5 pb-1 hover:ring-secondary hover:ring-2 ${
+                  className={`operations-filter rounded-lg border mx-0.5 px-5 pb-1 hover:ring-secondary hover:ring-2 ${
                      items[key].name === selectedItem.name
                         ? 'bg-secondary text-white pointer-events-none'
-                        : ''
+                        : 'bg-white'
                   }`}
                   onClick={() => onItemSelect(items[key])}
                   role="button"
